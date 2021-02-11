@@ -14,9 +14,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function setUp(): void
     {
-        $this->freshDatabase();
-
         parent::setUp();
+
+        $this->freshDatabase();
     }
 
     protected function getEnvironmentSetUp($app)

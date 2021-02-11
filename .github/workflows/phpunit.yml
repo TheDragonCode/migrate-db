@@ -9,7 +9,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "7.4", "8.0" ]
-                laravel: [ "{{laravel}}" ]
+                laravel: [ "7.0", "8.0" ]
 
         name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
 

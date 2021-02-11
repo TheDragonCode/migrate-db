@@ -9,8 +9,9 @@ use Tests\TestCase;
 
 final class MigrateTest extends TestCase
 {
-    public function testEmpty()
+    public function testFillable()
     {
+        dd('a');
         $this->assertNotEmpty($this->sourceConnection()->getAllTables());
         $this->assertEmpty($this->targetConnection()->getAllTables());
 
@@ -61,11 +62,6 @@ final class MigrateTest extends TestCase
             '--schema-from' => $this->source,
             '--schema-to'   => $this->target,
         ])->assertExitCode(0)->run();
-
-        $this->assertSame(
-            $this->tableData($this->source, $this->table_foo),
-            $this->tableData($this->target, $this->table_foo)
-        );
 
         $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q1'], $this->target);
         $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q2'], $this->target);
