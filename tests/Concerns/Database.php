@@ -37,7 +37,7 @@ trait Database
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
 
-            "unix_socket"    => '',
+            'unix_socket'    => '',
             'charset'        => 'utf8mb4',
             'collation'      => 'utf8mb4_unicode_ci',
             'prefix'         => '',
