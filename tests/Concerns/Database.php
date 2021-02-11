@@ -24,11 +24,17 @@ trait Database
 
     protected function freshDatabase(): void
     {
+        $this->clearCache();
         $this->createDatabases();
         $this->cleanTestDatabase();
         $this->loadMigrations();
 
         $this->fillTables();
+    }
+
+    protected function clearCache(): void
+    {
+        $this->artisan('config:clear')->run();
     }
 
     protected function createDatabases(): void
