@@ -104,7 +104,7 @@ final class MigrateTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "schema-from" option does not exist.');
 
-        $this->artisan('db:migrate');
+        $this->artisan('db:migrate')->run();
     }
 
     public function testFromFailed()
@@ -112,7 +112,7 @@ final class MigrateTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "schema-from" option does not exist.');
 
-        $this->artisan('db:migrate', ['--schema-to' => $this->target]);
+        $this->artisan('db:migrate', ['--schema-to' => $this->target])->run();
     }
 
     public function testToFailed()
@@ -120,7 +120,7 @@ final class MigrateTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "schema-to" option does not exist.');
 
-        $this->artisan('db:migrate', ['--schema-from' => $this->source]);
+        $this->artisan('db:migrate', ['--schema-from' => $this->source])->run();
     }
 
     public function testFailedFromConnectionName()
