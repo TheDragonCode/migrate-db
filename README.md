@@ -1,4 +1,4 @@
-# Move DB
+# Migrate DB
 
 Easy data transfer from one database to another
 
@@ -14,10 +14,10 @@ Easy data transfer from one database to another
 
 ## Installation
 
-To get the latest version of `Move DB`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/move-db
+$ composer require andrey-helldar/migrate-db
 ```
 
 Or manually update `require` block of `composer.json` and run `composer update`.
@@ -25,7 +25,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "andrey-helldar/move-db": "^1.0"
+        "andrey-helldar/migrate-db": "^1.0"
     }
 }
 ```
@@ -34,14 +34,14 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
     Coming soon...
 
-[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/move-db.svg?style=flat-square
+[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/migrate-db.svg?style=flat-square
 
-[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/move-db.svg?style=flat-square
+[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/migrate-db.svg?style=flat-square
 
-[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/move-db?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/migrate-db?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [link_license]:         LICENSE
 
-[link_packagist]:       https://packagist.org/packages/andrey-helldar/move-db
+[link_packagist]:       https://packagist.org/packages/andrey-helldar/migrate-db

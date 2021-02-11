@@ -1,5 +1,5 @@
 {
-    "name": "andrey-helldar/move-db",
+    "name": "andrey-helldar/migrate-db",
     "description": "Easy data transfer from one database to another",
     "type": "library",
     "license": "MIT",
@@ -8,7 +8,6 @@
         "migrating",
         "migration",
         "move",
-        "sync",
         "transfer"
     ],
     "authors": [
@@ -18,11 +17,11 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/move-db/issues",
-        "source": "https://github.com/andrey-helldar/move-db"
+        "issues": "https://github.com/andrey-helldar/migrate-db/issues",
+        "source": "https://github.com/andrey-helldar/migrate-db"
     },
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.2.5|^8.0",
         "illuminate/support": "^7.0|^8.0",
         "illuminate/database": "^7.0|^8.0"
     },
@@ -33,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\MoveDb\\": "src"
+            "Helldar\\MigrateDB\\": "src"
         }
     },
     "autoload-dev": {
@@ -46,5 +45,12 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Helldar\\MigrateDB\\ServiceProvider"
+            ]
+        }
+    }
 }
