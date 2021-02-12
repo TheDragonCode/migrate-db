@@ -30,9 +30,9 @@ jobs:
             -   uses: mirromutth/mysql-action@v1
                 with:
                     collation server: 'utf8mb4_unicode_ci'
-                    mysql user: ${{ secrets.DB_USERNAME }}
-                    mysql password: ${{ secrets.DB_PASSWORD }}
-                    mysql root password: ${{ secrets.DB_PASSWORD }}
+                    mysql user: default
+                    mysql password: root
+                    mysql root password: root
 
             -   name: Composer self update
                 run: composer self-update
