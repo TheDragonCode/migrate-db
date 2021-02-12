@@ -34,9 +34,6 @@ jobs:
                     mysql password: root
                     mysql root password: root
 
-            -   name: Composer self update
-                run: composer self-update
-
             -   name: Install dependencies
                 run: |
                     composer require laravel/framework:^${{ matrix.laravel }}
