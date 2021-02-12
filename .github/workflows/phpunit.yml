@@ -24,6 +24,9 @@ jobs:
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv, bcmath
                     coverage: none
 
+            -   name: Shutdown MySQL
+                run: sudo service mysql stop
+
             -   uses: mirromutth/mysql-action@v1
                 with:
                     collation server: 'utf8mb4_unicode_ci'
