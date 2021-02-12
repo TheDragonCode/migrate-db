@@ -11,7 +11,6 @@ final class MigrateTest extends TestCase
 {
     public function testFillable()
     {
-        dd('a');
         $this->assertNotEmpty($this->sourceConnection()->getAllTables());
         $this->assertEmpty($this->targetConnection()->getAllTables());
 

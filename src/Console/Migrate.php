@@ -5,8 +5,11 @@ namespace Helldar\MigrateDB\Console;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Builder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use stdClass;
 
 final class Migrate extends Command
 {
@@ -22,30 +25,43 @@ final class Migrate extends Command
         $this->cleanTargetDatabase();
         $this->runMigrations();
 
-        $this->disableForeign();
-        $this->runTransfer();
-        $this->enableForeign();
+        // $this->disableForeign();
+        // $this->runTransfer();
+        // $this->enableForeign();
     }
 
     protected function runTransfer(): void
     {
         $this->info('Transferring data...');
 
-        $this->withProgressBar($this->tables(), function (string $table) {
-            $this->migrateTable($table);
+        $key = $this->transferKey($this->source());
+
+        $this->withProgressBar($this->tables(), function (stdClass $table) use ($key) {
+            $name = $table->{$key};
+
+            $this->migrateTable($name, $this->primaryKey($name));
         });
     }
 
-    protected function migrateTable(string $table): void
+    protected function migrateTable(string $table, string $column): void
     {
-        DB::connection($this->source())->table($table)->chunk(1000, function ($items) use ($table) {
-            DB::connection($this->target())->table($table)->insert($items);
-        });
+        DB::connection($this->source())
+            ->table($table)
+            ->orderBy($column)
+            ->chunk(1000, function (Collection $items) use ($table) {
+                DB::connection($this->target())->table($table)->insert($items->toArray());
+            });
     }
 
     protected function tables(): array
     {
-        return $this->sourceConnection()->getAllTables();
+        $tables = $this->sourceConnection()->getAllTables();
+
+        $key = $this->transferKey($this->source());
+
+        return array_filter($tables, static function ($table) use ($key) {
+            return $table->{$key} !== 'migrations';
+        });
     }
 
     protected function cleanTargetDatabase(): void
@@ -93,6 +109,26 @@ final class Migrate extends Command
     protected function target(): string
     {
         return $this->validatedOption('schema-to');
+    }
+
+    protected function transferKey(string $database): string
+    {
+        return 'Tables_in_' . $database;
+    }
+
+    protected function primaryKey(string $table)
+    {
+        $primary = DB::select(DB::raw("SHOW KEYS FROM `{$table}` WHERE Key_name = 'PRIMARY'"));
+
+        if (! empty($primary)) {
+            return $primary->Column_name;
+        }
+
+        $columns = DB::select(DB::raw("SHOW COLUMNS FROM `{$table}`"));
+
+        $column = Arr::first($columns);
+
+        return $column->Field;
     }
 
     protected function validatedOption(string $key): string

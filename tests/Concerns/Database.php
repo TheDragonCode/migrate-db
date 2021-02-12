@@ -3,7 +3,7 @@
 namespace Tests\Concerns;
 
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Support\Facades\Schema;
+use Tests\Services\MySqlConnection;
 
 trait Database
 {
@@ -24,17 +24,11 @@ trait Database
 
     protected function freshDatabase(): void
     {
-        $this->clearCache();
         $this->createDatabases();
         $this->cleanTestDatabase();
         $this->loadMigrations();
 
         $this->fillTables();
-    }
-
-    protected function clearCache(): void
-    {
-        $this->artisan('config:clear')->run();
     }
 
     protected function createDatabases(): void
@@ -45,8 +39,10 @@ trait Database
 
     protected function createDatabase(string $name): void
     {
-        Schema::connection($name)->dropDatabaseIfExists($name);
-        Schema::connection($name)->createDatabase($name);
+        MySqlConnection::make()
+            ->of($name)
+            ->dropDatabase()
+            ->createDatabase();
     }
 
     protected function cleanTestDatabase(): void

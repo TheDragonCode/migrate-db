@@ -26,6 +26,7 @@
         "illuminate/database": "^7.0|^8.0"
     },
     "require-dev": {
+        "andrey-helldar/support": "^2.15",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^5.0|^6.0",
         "phpunit/phpunit": "^9.0"
