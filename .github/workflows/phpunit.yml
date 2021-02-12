@@ -34,6 +34,9 @@ jobs:
                     mysql password: root
                     mysql root password: root
 
+            -   name: Startup MySQL
+                run: sudo service mysql start
+
             -   name: Install dependencies
                 run: |
                     composer require laravel/framework:^${{ matrix.laravel }}
