@@ -24,6 +24,13 @@ jobs:
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv, bcmath
                     coverage: none
 
+            -   uses: mirromutth/mysql-action@v1
+                with:
+                    collation server: 'utf8mb4_unicode_ci'
+                    mysql user: ${{ secrets.DB_USERNAME }}
+                    mysql password: ${{ secrets.DB_PASSWORD }}
+                    mysql root password: ${{ secrets.DB_PASSWORD }}
+
             -   name: Composer self update
                 run: composer self-update
 
