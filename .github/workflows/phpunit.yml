@@ -39,7 +39,7 @@ jobs:
 
             -   name: Install dependencies
                 run: |
-                    composer require illuminate/laravel:^${{ matrix.laravel }}
+                    composer require laravel/framework:^${{ matrix.laravel }}
                     composer update --prefer-stable --prefer-dist --no-progress --no-interaction
 
             -   name: Execute tests
