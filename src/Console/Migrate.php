@@ -3,6 +3,7 @@
 namespace Helldar\MigrateDB\Console;
 
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
+use Helldar\Support\Facades\Helpers\Arr as Arrayable;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Arr;
@@ -25,9 +26,9 @@ final class Migrate extends Command
         $this->cleanTargetDatabase();
         $this->runMigrations();
 
-        // $this->disableForeign();
-        // $this->runTransfer();
-        // $this->enableForeign();
+        $this->disableForeign();
+        $this->runTransfer();
+        $this->enableForeign();
     }
 
     protected function runTransfer(): void
@@ -49,7 +50,9 @@ final class Migrate extends Command
             ->table($table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
-                DB::connection($this->target())->table($table)->insert($items->toArray());
+                $items = Arrayable::toArray($items);
+
+                return DB::connection($this->target())->table($table)->insert($items);
             });
     }
 

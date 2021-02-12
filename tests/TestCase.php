@@ -6,6 +6,7 @@ use Helldar\MigrateDB\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Connections;
 use Tests\Concerns\Database;
+use Tests\Providers\TestServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -26,6 +27,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app): array
     {
-        return [ServiceProvider::class];
+        return [
+            ServiceProvider::class,
+            TestServiceProvider::class,
+        ];
     }
 }

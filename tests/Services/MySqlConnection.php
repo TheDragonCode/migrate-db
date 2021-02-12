@@ -99,8 +99,8 @@ final class MySqlConnection
         return sprintf(
             'create database %s default character set %s default collate %s',
             $this->wrapValue($name),
-            $this->wrapValue(Arr::get($this->config, 'charset')),
-            $this->wrapValue(Arr::get($this->config, 'collation'))
+            $this->wrapValue(Arr::get($this->config(), 'charset')),
+            $this->wrapValue(Arr::get($this->config(), 'collation'))
         );
     }
 

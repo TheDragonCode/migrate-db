@@ -2,7 +2,6 @@
 
 namespace Tests\Concerns;
 
-use Illuminate\Contracts\Console\Kernel;
 use Tests\Services\MySqlConnection;
 
 trait Database
@@ -25,8 +24,8 @@ trait Database
     protected function freshDatabase(): void
     {
         $this->createDatabases();
+
         $this->cleanTestDatabase();
-        $this->loadMigrations();
 
         $this->fillTables();
     }
@@ -47,15 +46,6 @@ trait Database
 
     protected function cleanTestDatabase(): void
     {
-        $this->artisan('migrate:fresh', ['--database' => $this->source])->run();
-
-        $this->app[Kernel::class]->setArtisan(null);
-    }
-
-    protected function loadMigrations(): void
-    {
-        $this->loadMigrationsFrom(
-            __DIR__ . '/../fixtures/migrations'
-        );
+        $this->artisan('migrate')->run();
     }
 }

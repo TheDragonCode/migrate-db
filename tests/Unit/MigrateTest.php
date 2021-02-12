@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Tests\TestCase;
@@ -45,34 +46,34 @@ final class MigrateTest extends TestCase
 
     public function testData()
     {
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q1'], $this->source);
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q2'], $this->source);
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q3'], $this->source);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->source);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->source);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->source);
 
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q1'], $this->source);
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q2'], $this->source);
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q3'], $this->source);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->source);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->source);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->source);
 
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q1'], $this->source);
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q2'], $this->source);
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q3'], $this->source);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->source);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->source);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->source);
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source,
             '--schema-to'   => $this->target,
         ])->assertExitCode(0)->run();
 
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q1'], $this->target);
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q2'], $this->target);
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_q3'], $this->target);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->target);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->target);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->target);
 
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q1'], $this->target);
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q2'], $this->target);
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_q3'], $this->target);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->target);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->target);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->target);
 
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q1'], $this->target);
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q2'], $this->target);
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_q3'], $this->target);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->target);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->target);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->target);
     }
 
     public function testSame()
@@ -140,6 +141,8 @@ final class MigrateTest extends TestCase
 
     protected function tableData(string $connection, string $table): array
     {
-        return DB::connection($connection)->table($table)->get()->toArray();
+        $items = DB::connection($connection)->table($table)->get();
+
+        return Arr::toArray($items);
     }
 }
