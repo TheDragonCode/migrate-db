@@ -16,7 +16,7 @@ trait Database
 
     protected function setDatabases($app): void
     {
-        $app->config->set('database.default', $this->source);
+        $app->config->set('database.default', $this->currentSourceConnection());
 
         $this->setDatabaseConnections($app);
     }
@@ -32,8 +32,8 @@ trait Database
 
     protected function createDatabases(): void
     {
-        $this->createDatabase($this->source);
-        $this->createDatabase($this->target);
+        $this->createDatabase($this->currentSourceConnection());
+        $this->createDatabase($this->currentTargetConnection());
     }
 
     protected function createDatabase(string $name): void
@@ -46,6 +46,6 @@ trait Database
 
     protected function cleanTestDatabase(): void
     {
-        $this->artisan('migrate')->run();
+        $this->artisan('migrate', ['--database' => $this->currentSourceConnection()])->run();
     }
 }
