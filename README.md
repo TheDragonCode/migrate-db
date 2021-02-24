@@ -20,11 +20,11 @@ To get the latest version of `Migrate DB`, simply require the project using [Com
 $ composer require andrey-helldar/migrate-db
 ```
 
-Or manually update `require` block of `composer.json` and run `composer update`.
+Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
 ```json
 {
-    "require": {
+    "require-dev": {
         "andrey-helldar/migrate-db": "^1.0"
     }
 }
@@ -32,7 +32,28 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
-    Coming soon...
+Create a new database and set up both connections in the `connections` section of
+the [config/database.php](https://github.com/laravel/laravel/blob/8.x/config/database.php) file, then run the `db:migrate` console command passing two
+parameters:
+
+```bash
+$ php artisan db:migrate --schema-from=source --schema-to=target
+```
+
+where:
+
+    `source` - Source connection name
+    `target` - Target connection name
+
+For example:
+
+```bash
+$ php artisan db:migrate --schema-from=foo --schema-to=bar
+```
+
+The command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
+
+Enjoy 😊
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/migrate-db.svg?style=flat-square
 
