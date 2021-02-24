@@ -41,6 +41,7 @@ $ php artisan db:migrate --schema-from=source --schema-to=target
 ```
 
 where:
+
 * `source` - Source connection name
 * `target` - Target connection name
 
