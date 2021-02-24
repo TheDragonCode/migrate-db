@@ -2,7 +2,7 @@
 
 namespace Helldar\MigrateDB\Console;
 
-use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
+use Helldar\MigrateDB\Contracts\Database\Builder;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\MigrateDB\Facades\BuilderManager;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -114,9 +114,9 @@ final class Migrate extends Command
         $this->validatedOption('schema-to');
     }
 
-    protected function resolveBuilder(string $connection): BuilderContract
+    protected function resolveBuilder(string $connection): Builder
     {
-        return BuilderManager::of($connection)->resolve();
+        return BuilderManager::of($connection)->get();
     }
 
     protected function resolveBuilders(): void

@@ -3,7 +3,7 @@
 namespace Helldar\MigrateDB\Facades;
 
 use Helldar\MigrateDB\Contracts\Database\Builder;
-use Helldar\MigrateDB\Support\BuilderManager as Support;
+use Helldar\MigrateDB\Database\Manager as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**

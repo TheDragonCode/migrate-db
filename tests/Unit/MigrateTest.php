@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
-use Helldar\MigrateDB\Exceptions\UnknownDatabaseDriverException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -125,16 +124,16 @@ final class MigrateTest extends TestCase
 
     public function testFailedFromConnectionName()
     {
-        $this->expectException(UnknownDatabaseDriverException::class);
-        $this->expectExceptionMessage('Database connection [qwerty] not configured.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
         $this->artisan('db:migrate', ['--schema-from' => 'qwerty', '--schema-to' => $this->target])->run();
     }
 
     public function testFailedToConnectionName()
     {
-        $this->expectException(UnknownDatabaseDriverException::class);
-        $this->expectExceptionMessage('Database connection [qwerty] not configured.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
         $this->artisan('db:migrate', ['--schema-from' => $this->source, '--schema-to' => 'qwerty'])->run();
     }

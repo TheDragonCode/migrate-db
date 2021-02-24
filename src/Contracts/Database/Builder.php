@@ -2,11 +2,12 @@
 
 namespace Helldar\MigrateDB\Contracts\Database;
 
+use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
 
 interface Builder
 {
-    public function __construct(string $connection);
+    public function __construct(Connection $connection);
 
     /**
      * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
