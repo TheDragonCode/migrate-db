@@ -5,6 +5,7 @@ namespace Helldar\MigrateDB\Console;
 use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\MigrateDB\Facades\BuilderManager;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -50,9 +51,11 @@ final class Migrate extends Command
             ->table($table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
+                $items = Arr::toArray($items);
+
                 DB::connection($this->target())
                     ->table($table)
-                    ->insert($items->toArray());
+                    ->insert($items);
             });
     }
 

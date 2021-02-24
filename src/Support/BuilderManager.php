@@ -20,17 +20,20 @@ final class BuilderManager
 
     public function resolve(): Builder
     {
-        switch ($this->getType()) {
+        $type       = $this->getType();
+        $connection = $this->connection;
+
+        switch ($type) {
             case 'mysql':
-                return new MySQLBuilder();
+                return MySQLBuilder::make($connection);
 
             default:
-                throw new UnknownDatabaseDriverException($this->getType());
+                throw new UnknownDatabaseDriverException($type);
         }
     }
 
-    protected function getType(): string
+    protected function getType(): ?string
     {
-        return Config::get("database.connections.{$this->connection}.driver");
+        return Config::get("database.connections.{$this->connection}.driver", $this->connection);
     }
 }

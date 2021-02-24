@@ -3,6 +3,7 @@
 namespace Helldar\MigrateDB\Builders;
 
 use Helldar\MigrateDB\Contracts\Database\Builder;
+use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
@@ -10,13 +11,13 @@ use stdClass;
 
 abstract class BaseBuilder implements Builder
 {
+    use Makeable;
+
     protected $connection;
 
-    public function connection(string $name): Builder
+    public function __construct(string $connection)
     {
-        $this->connection = $name;
-
-        return $this;
+        $this->connection = $connection;
     }
 
     public function schema(): SchemaBuilder

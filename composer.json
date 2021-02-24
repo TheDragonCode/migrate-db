@@ -22,11 +22,11 @@
     },
     "require": {
         "php": "^7.2.5|^8.0",
-        "illuminate/support": "^7.0|^8.0",
-        "illuminate/database": "^7.0|^8.0"
+        "andrey-helldar/support": "^2.15",
+        "illuminate/database": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0"
     },
     "require-dev": {
-        "andrey-helldar/support": "^2.15",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^5.0|^6.0",
         "phpunit/phpunit": "^9.0"

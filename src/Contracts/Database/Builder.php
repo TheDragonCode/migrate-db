@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Builder as SchemaBuilder;
 
 interface Builder
 {
-    public function connection(string $name): self;
+    public function __construct(string $connection);
 
     /**
      * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder

@@ -6,8 +6,8 @@ use Symfony\Component\Console\Exception\InvalidArgumentException as BaseExceptio
 
 final class InvalidArgumentException extends BaseException
 {
-    public function __construct(string $key)
+    public function __construct(string $driver)
     {
-        parent::__construct('The "' . $key . '" option does not exist.');
+        parent::__construct('The "' . $driver . '" option does not exist.');
     }
 }

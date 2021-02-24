@@ -6,8 +6,8 @@ use Symfony\Component\Console\Exception\InvalidArgumentException as BaseExceptio
 
 final class UnknownDatabaseDriverException extends BaseException
 {
-    public function __construct(string $key)
+    public function __construct(string $driver)
     {
-        parent::__construct('Unknown database driver: "' . $key . '".');
+        parent::__construct('Database connection [' . $driver . '] not configured.');
     }
 }
