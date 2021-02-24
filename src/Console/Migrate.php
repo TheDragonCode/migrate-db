@@ -2,15 +2,12 @@
 
 namespace Helldar\MigrateDB\Console;
 
+use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
-use Helldar\Support\Facades\Helpers\Arr as Arrayable;
+use Helldar\MigrateDB\Facades\BuilderManager;
 use Illuminate\Console\Command;
-use Illuminate\Database\Schema\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use stdClass;
 
 final class Migrate extends Command
 {
@@ -20,9 +17,16 @@ final class Migrate extends Command
 
     protected $description = 'Data transfer from one database to another';
 
+    /** @var \Helldar\MigrateDB\Contracts\Database\Builder */
+    protected $source;
+
+    /** @var \Helldar\MigrateDB\Contracts\Database\Builder */
+    protected $target;
+
     public function handle()
     {
         $this->validateOptions();
+        $this->resolveBuilders();
         $this->cleanTargetDatabase();
         $this->runMigrations();
 
@@ -35,12 +39,8 @@ final class Migrate extends Command
     {
         $this->info('Transferring data...');
 
-        $key = $this->transferKey($this->source());
-
-        $this->withProgressBar($this->tables(), function (stdClass $table) use ($key) {
-            $name = $table->{$key};
-
-            $this->migrateTable($name, $this->primaryKey($name));
+        $this->withProgressBar($this->tables(), function (string $table) {
+            $this->migrateTable($table, $this->source->getPrimaryKey($table));
         });
     }
 
@@ -50,28 +50,22 @@ final class Migrate extends Command
             ->table($table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
-                $items = Arrayable::toArray($items);
-
-                return DB::connection($this->target())->table($table)->insert($items);
+                DB::connection($this->target())
+                    ->table($table)
+                    ->insert($items->toArray());
             });
     }
 
     protected function tables(): array
     {
-        $tables = $this->sourceConnection()->getAllTables();
-
-        $key = $this->transferKey($this->source());
-
-        return array_filter($tables, static function ($table) use ($key) {
-            return $table->{$key} !== 'migrations';
-        });
+        return $this->source->getAllTables();
     }
 
     protected function cleanTargetDatabase(): void
     {
         $this->info('Clearing the target database...');
 
-        $this->targetConnection()->dropAllTables();
+        $this->target->dropAllTables();
     }
 
     protected function runMigrations(): void
@@ -83,25 +77,12 @@ final class Migrate extends Command
 
     protected function disableForeign(): void
     {
-        $this->targetConnection()->disableForeignKeyConstraints();
+        $this->target->disableForeign();
     }
 
     protected function enableForeign(): void
     {
-        $this->targetConnection()->enableForeignKeyConstraints();
-    }
-
-    /**
-     * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
-     */
-    protected function sourceConnection(): Builder
-    {
-        return Schema::connection($this->source());
-    }
-
-    protected function targetConnection(): Builder
-    {
-        return Schema::connection($this->target());
+        $this->target->enableForeign();
     }
 
     protected function source(): string
@@ -112,26 +93,6 @@ final class Migrate extends Command
     protected function target(): string
     {
         return $this->validatedOption('schema-to');
-    }
-
-    protected function transferKey(string $database): string
-    {
-        return 'Tables_in_' . $database;
-    }
-
-    protected function primaryKey(string $table)
-    {
-        $primary = DB::select(DB::raw("SHOW KEYS FROM `{$table}` WHERE Key_name = 'PRIMARY'"));
-
-        if (! empty($primary)) {
-            return $primary->Column_name;
-        }
-
-        $columns = DB::select(DB::raw("SHOW COLUMNS FROM `{$table}`"));
-
-        $column = Arr::first($columns);
-
-        return $column->Field;
     }
 
     protected function validatedOption(string $key): string
@@ -147,5 +108,16 @@ final class Migrate extends Command
     {
         $this->validatedOption('schema-from');
         $this->validatedOption('schema-to');
+    }
+
+    protected function resolveBuilder(string $connection): BuilderContract
+    {
+        return BuilderManager::of($connection)->resolve();
+    }
+
+    protected function resolveBuilders(): void
+    {
+        $this->source = $this->resolveBuilder($this->source());
+        $this->target = $this->resolveBuilder($this->target());
     }
 }
