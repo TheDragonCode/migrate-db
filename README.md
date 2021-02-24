@@ -45,12 +45,6 @@ where:
 * `foo` - Source connection name
 * `bar` - Target connection name
 
-For example:
-
-```bash
-$ php artisan db:migrate --schema-from=foo --schema-to=bar
-```
-
 The command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
 
 Enjoy 😊
