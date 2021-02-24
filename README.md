@@ -37,13 +37,13 @@ the [config/database.php](https://github.com/laravel/laravel/blob/8.x/config/dat
 parameters:
 
 ```bash
-$ php artisan db:migrate --schema-from=source --schema-to=target
+$ php artisan db:migrate --schema-from=foo --schema-to=bar
 ```
 
 where:
 
-* `source` - Source connection name
-* `target` - Target connection name
+* `foo` - Source connection name
+* `bar` - Target connection name
 
 For example:
 
