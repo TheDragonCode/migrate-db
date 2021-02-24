@@ -37,7 +37,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 |:---|:---|
 | PHP | ^7.2.5, ^8.0 |
 | Laravel | ^7.0, ^8.0 |
-| Database | MySQL, PostgreSQL, MSSQL |
+| Databases | MySQL, PostgreSQL, MSSQL |
 
 
 ## Using
