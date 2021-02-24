@@ -5,7 +5,7 @@ namespace Helldar\MigrateDB\Builders;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-final class PostgreSQLBuilder extends BaseBuilder
+final class PostgresBuilder extends BaseBuilder
 {
     public function getPrimaryKey(string $table): string
     {
