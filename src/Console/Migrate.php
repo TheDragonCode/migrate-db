@@ -73,8 +73,9 @@ final class Migrate extends Command
 
     protected function runMigrations(): void
     {
-        $this->info('Run migrations on the target database...');
+        $this->info('Run migrations on the databases...');
 
+        $this->call('migrate', ['--database' => $this->source()]);
         $this->call('migrate', ['--database' => $this->target()]);
     }
 
