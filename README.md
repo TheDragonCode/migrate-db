@@ -10,6 +10,7 @@ Easy data transfer from one database to another
 ## Table of contents
 
 * [Installation](#installation)
+* [Compatibility](#compatibility)
 * [Using](#using)
 
 ## Installation
@@ -29,6 +30,15 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
     }
 }
 ```
+
+## Compatibility
+
+| Service | Versions |
+|:---|:---|
+| PHP | ^7.2.5, ^8.0 |
+| Laravel | ^7.0, ^8.0 |
+| Database | MySQL, PostgreSQL, MSSQL |
+
 
 ## Using
 
