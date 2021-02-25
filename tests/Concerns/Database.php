@@ -36,7 +36,7 @@ trait Database
     {
         $this->createDatabases();
 
-        $this->cleanTestDatabase();
+        $this->upToDateMigrations();
 
         $this->fillTables();
     }
@@ -78,7 +78,7 @@ trait Database
         return Manager::make()->get($driver)->merge($config);
     }
 
-    protected function cleanTestDatabase(): void
+    protected function upToDateMigrations(): void
     {
         $this->artisan('migrate', ['--database' => $this->source_connection])->run();
     }
