@@ -39,7 +39,7 @@ final class Configuration implements Arrayable
         'options'        => [],
     ];
 
-    public function __call($name, $value)
+    public function __call($name, $value): void
     {
         Arr::set($this->config, $this->resolveKeyName($name), $this->castValue($value[0]));
     }
