@@ -2,7 +2,7 @@
 
 namespace Tests\Concerns;
 
-use Helldar\MigrateDB\Constants\Types;
+use Helldar\MigrateDB\Constants\Drivers;
 use Tests\Connectors\MySqlConnection;
 use Tests\Connectors\PostgresConnection;
 use Tests\Connectors\SqlServerConnection;
@@ -13,9 +13,9 @@ trait Database
     use Seeders;
 
     protected $connectors = [
-        Types::SQLSRV   => SqlServerConnection::class,
-        Types::MYSQL    => MySqlConnection::class,
-        Types::POSTGRES => PostgresConnection::class,
+        Drivers::MYSQL    => MySqlConnection::class,
+        Drivers::POSTGRES => PostgresConnection::class,
+        Drivers::SQLSRV   => SqlServerConnection::class,
     ];
 
     protected $table_foo = 'foo';

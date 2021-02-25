@@ -2,10 +2,10 @@
 
 namespace Tests\Concerns;
 
-use Helldar\MigrateDB\Constants\Types;
 use Illuminate\Database\Schema\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
+use Tests\Configurations\BaseConfiguration;
+use Tests\Configurations\Manager;
 
 trait Connections
 {
@@ -41,19 +41,15 @@ trait Connections
 
     protected function setDatabaseConnection($app, string $name, string $connection): void
     {
-        $default = $this->getDefaultConfig($app, $connection);
+        $configurator = $this->getConfigurator($connection);
 
-        Arr::set($default, 'database', $name);
+        $configurator->setDatabase($name);
 
-        if ($connection === Types::SQLSRV) {
-            Arr::set($default, 'username', 'sa');
-        }
-
-        $app->config->set('database.connections.' . $name, $default);
+        $app->config->set('database.connections.' . $name, $configurator->toArray());
     }
 
-    protected function getDefaultConfig($app, string $connection): array
+    protected function getConfigurator(string $connection): BaseConfiguration
     {
-        return $app->config->get('database.connections.' . $connection);
+        return Manager::make()->get($connection);
     }
 }

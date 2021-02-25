@@ -2,7 +2,7 @@
 
 namespace Helldar\MigrateDB\Constants;
 
-final class Types
+final class Drivers
 {
     public const MYSQL = 'mysql';
 

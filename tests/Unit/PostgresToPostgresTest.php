@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Helldar\MigrateDB\Constants\Types;
+use Helldar\MigrateDB\Constants\Drivers;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
@@ -148,11 +148,11 @@ final class PostgresToPostgresTest extends TestCase
 
     protected function defaultSourceConnectionName(): string
     {
-        return Types::POSTGRES;
+        return Drivers::POSTGRES;
     }
 
     protected function defaultTargetConnectionName(): string
     {
-        return Types::POSTGRES;
+        return Drivers::POSTGRES;
     }
 }
