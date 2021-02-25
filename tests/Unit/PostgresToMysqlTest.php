@@ -6,8 +6,9 @@ use Helldar\MigrateDB\Constants\Drivers;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
-final class PostgresToMysqlTest extends \Tests\TestCase
+final class PostgresToMysqlTest extends TestCase
 {
     public function testFillable()
     {
