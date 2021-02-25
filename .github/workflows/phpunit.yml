@@ -22,10 +22,8 @@ jobs:
 
             -   name: Setup MySQL
                 uses: mirromutth/mysql-action@v1
-                with:
-                    character set server: utf8mb4
-                    collation server: utf8mb4_unicode_ci
-                    mysql root password: root
+                env:
+                    INPUT_MYSQL_ROOT_PASSWORD: root
 
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
