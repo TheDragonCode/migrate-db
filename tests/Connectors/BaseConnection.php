@@ -24,10 +24,6 @@ abstract class BaseConnection
 
     protected $grammar;
 
-    abstract protected function grammar(): Grammar;
-
-    abstract protected function connector(): ConnectorInterface;
-
     public function of(string $database, string $driver): self
     {
         $this->database = $database;
@@ -60,6 +56,10 @@ abstract class BaseConnection
 
         return $this;
     }
+
+    abstract protected function grammar(): Grammar;
+
+    abstract protected function connector(): ConnectorInterface;
 
     protected function query(string $query): void
     {
