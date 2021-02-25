@@ -39,13 +39,13 @@ trait Connections
         $this->setDatabaseConnection($app, $this->target_connection, $this->defaultTargetConnectionName());
     }
 
-    protected function setDatabaseConnection($app, string $name, string $connection): void
+    protected function setDatabaseConnection($app, string $connection, string $default_connection): void
     {
-        $configurator = $this->getConfigurator($connection);
+        $configurator = $this->getConfigurator($default_connection);
 
-        $configurator->setDatabase($name);
+        $configurator->setDatabase($connection);
 
-        $app->config->set('database.connections.' . $name, $configurator->toArray());
+        $app->config->set('database.connections.' . $connection, $configurator->toArray());
     }
 
     protected function getConfigurator(string $connection): BaseConfiguration
