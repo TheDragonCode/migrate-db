@@ -9,7 +9,7 @@ use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Support\Arr;
 use stdClass;
 
-final class Builder implements BuilderContract
+abstract class Builder implements BuilderContract
 {
     use Makeable;
 
@@ -20,6 +20,8 @@ final class Builder implements BuilderContract
     {
         $this->connection = $connection;
     }
+
+    abstract protected function tableNameColumn(): string;
 
     /**
      * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
@@ -77,11 +79,6 @@ final class Builder implements BuilderContract
         return array_map(static function ($table) use ($key) {
             return $table->{$key};
         }, $tables);
-    }
-
-    protected function tableNameColumn(): string
-    {
-        return 'Tables_in_' . $this->database();
     }
 
     protected function database(): string

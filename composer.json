@@ -28,6 +28,8 @@
         "illuminate/support": "^7.0|^8.0"
     },
     "require-dev": {
+        "ext-pdo_mysql": "*",
+        "ext-pdo_pgsql": "*",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^5.0|^6.0",
         "phpunit/phpunit": "^9.0"

@@ -4,6 +4,7 @@ namespace Tests\Concerns;
 
 use Tests\Connectors\MySqlConnection;
 use Tests\Connectors\PostgresConnection;
+use Tests\Constants\Connect;
 
 /** @mixin \Tests\Concerns\Connections */
 trait Database
@@ -54,8 +55,8 @@ trait Database
     protected function getDatabaseConnector(string $connection): string
     {
         $connectors = [
-            'mysql' => MySqlConnection::class,
-            'pgsql' => PostgresConnection::class,
+            Connect::MYSQL    => MySqlConnection::class,
+            Connect::POSTGRES => PostgresConnection::class,
         ];
 
         return $connectors[$connection];

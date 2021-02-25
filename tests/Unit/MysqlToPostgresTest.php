@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Tests\Constants\Connect;
 use Tests\TestCase;
 
-final class MysqlToMysqlTest extends TestCase
+final class MysqlToPostgresTest extends TestCase
 {
     public function testFillable()
     {
@@ -153,6 +153,6 @@ final class MysqlToMysqlTest extends TestCase
 
     protected function defaultTargetConnectionName(): string
     {
-        return Connect::MYSQL;
+        return Connect::POSTGRES;
     }
 }

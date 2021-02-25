@@ -6,9 +6,8 @@ use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use Tests\Constants\Connect;
-use Tests\TestCase;
 
-final class MysqlToMysqlTest extends TestCase
+final class PostgresToMysqlTest extends \Tests\TestCase
 {
     public function testFillable()
     {
@@ -148,7 +147,7 @@ final class MysqlToMysqlTest extends TestCase
 
     protected function defaultSourceConnectionName(): string
     {
-        return Connect::MYSQL;
+        return Connect::POSTGRES;
     }
 
     protected function defaultTargetConnectionName(): string

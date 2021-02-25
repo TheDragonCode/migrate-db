@@ -7,6 +7,7 @@ use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\MigrateDB\Facades\BuilderManager;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Console\Command;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -47,15 +48,12 @@ final class Migrate extends Command
 
     protected function migrateTable(string $table, string $column): void
     {
-        DB::connection($this->source())
-            ->table($table)
+        $this->builder($this->source(), $table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
                 $items = Arr::toArray($items);
 
-                DB::connection($this->target())
-                    ->table($table)
-                    ->insert($items);
+                $this->builder($this->target(), $table)->insert($items);
             });
     }
 
@@ -123,5 +121,10 @@ final class Migrate extends Command
     {
         $this->source = $this->resolveBuilder($this->source());
         $this->target = $this->resolveBuilder($this->target());
+    }
+
+    protected function builder(string $connection, string $table): QueryBuilder
+    {
+        return DB::connection($connection)->table($table);
     }
 }

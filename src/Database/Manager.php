@@ -6,12 +6,18 @@ use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
 use Illuminate\Container\Container;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 
 final class Manager
 {
     protected $connection;
+
+    protected $builders = [
+        'mysql' => MySQLBuilder::class,
+        'pgsql' => PostgresBuilder::class,
+    ];
 
     public function of(string $connection): self
     {
@@ -22,7 +28,17 @@ final class Manager
 
     public function get(): BuilderContract
     {
-        return Builder::make($this->connection());
+        $builder = $this->getBuilder();
+
+        return $builder::make($this->connection());
+    }
+
+    /**
+     * @return \Helldar\MigrateDB\Database\Builder|string
+     */
+    protected function getBuilder(): string
+    {
+        return $this->builders[$this->driver()];
     }
 
     protected function connection(): Connection
@@ -49,5 +65,10 @@ final class Manager
         }
 
         throw new InvalidArgumentException("Unsupported driver [{$this->connection}].");
+    }
+
+    protected function driver(): string
+    {
+        return Arr::get($this->config(), 'driver');
     }
 }

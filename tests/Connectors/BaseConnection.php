@@ -3,7 +3,9 @@
 namespace Tests\Connectors;
 
 use Helldar\Support\Concerns\Makeable;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectorInterface;
+use Illuminate\Database\Schema\Grammars\Grammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use PDO;
@@ -14,9 +16,15 @@ abstract class BaseConnection
 
     protected $config = [];
 
+    protected $default_database;
+
     protected $database;
 
     protected $driver;
+
+    protected $grammar;
+
+    abstract protected function grammar(): Grammar;
 
     abstract protected function connector(): ConnectorInterface;
 
@@ -32,7 +40,7 @@ abstract class BaseConnection
     {
         $name = $this->database($name);
 
-        $this->query($this->compileDropDatabase($name));
+        $this->query($this->getGrammar()->compileDropDatabaseIfExists($name));
 
         return $this;
     }
@@ -41,7 +49,7 @@ abstract class BaseConnection
     {
         $name = $this->database($name);
 
-        $this->query($this->compileCreateDatabase($name));
+        $this->query($this->getGrammar()->compileCreateDatabase($name, $this->databaseConnection()));
 
         return $this;
     }
@@ -64,39 +72,19 @@ abstract class BaseConnection
             return $this->config;
         }
 
-        $config = Config::get('database.connections.' . $this->driver);
-
-        return $this->config = $this->cleanConfig($config);
+        return $this->config = $this->cleanConfig($this->getConfig());
     }
 
     protected function cleanConfig(array $config): array
     {
-        $this->setDatabase($config);
+        Arr::set($config, 'database', $this->default_database);
 
         return $config;
     }
 
-    protected function setDatabase(array &$config): void
+    protected function getConfig(): array
     {
-        Arr::set($config, 'database', '');
-    }
-
-    protected function compileDropDatabase(string $name): string
-    {
-        return sprintf(
-            'drop database if exists %s',
-            $this->wrapValue($name)
-        );
-    }
-
-    protected function compileCreateDatabase(string $name): string
-    {
-        return sprintf(
-            'create database %s default character set %s default collate %s',
-            $this->wrapValue($name),
-            $this->wrapValue(Arr::get($this->config(), 'charset')),
-            $this->wrapValue(Arr::get($this->config(), 'collation'))
-        );
+        return Config::get('database.connections.' . $this->driver);
     }
 
     protected function database(string $name = null): string
@@ -104,19 +92,17 @@ abstract class BaseConnection
         return $name ?: $this->database;
     }
 
-    /**
-     * Wrap a single string in keyword identifiers.
-     *
-     * @param  string  $value
-     *
-     * @return string
-     */
-    protected function wrapValue(string $value): string
+    protected function getGrammar(): Grammar
     {
-        if ($value !== '*') {
-            return '`' . str_replace('`', '``', $value) . '`';
+        if ($this->grammar) {
+            return $this->grammar;
         }
 
-        return $value;
+        return $this->grammar = $this->grammar();
+    }
+
+    protected function databaseConnection(): Connection
+    {
+        return new Connection($this->connection(), '', '', $this->getConfig());
     }
 }
