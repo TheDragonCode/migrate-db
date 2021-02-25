@@ -8,7 +8,7 @@ use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-final class PostgresToPostgresTest extends TestCase
+final class PostgresToSqlServerTest extends TestCase
 {
     public function testFillable()
     {
@@ -153,6 +153,6 @@ final class PostgresToPostgresTest extends TestCase
 
     protected function defaultTargetConnectionName(): string
     {
-        return Types::POSTGRES;
+        return Types::SQLSRV;
     }
 }

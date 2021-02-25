@@ -2,6 +2,7 @@
 
 namespace Helldar\MigrateDB\Database;
 
+use Helldar\MigrateDB\Constants\Types;
 use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
 use Illuminate\Container\Container;
 use Illuminate\Database\Connection;
@@ -15,8 +16,9 @@ final class Manager
     protected $connection;
 
     protected $builders = [
-        'mysql' => MySQLBuilder::class,
-        'pgsql' => PostgresBuilder::class,
+        Types::SQLSRV   => SqlServerBuilder::class,
+        Types::MYSQL    => MySQLBuilder::class,
+        Types::POSTGRES => PostgresBuilder::class,
     ];
 
     public function of(string $connection): self

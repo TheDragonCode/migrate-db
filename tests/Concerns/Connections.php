@@ -2,6 +2,7 @@
 
 namespace Tests\Concerns;
 
+use Helldar\MigrateDB\Constants\Types;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
@@ -43,6 +44,10 @@ trait Connections
         $default = $this->getDefaultConfig($app, $connection);
 
         Arr::set($default, 'database', $name);
+
+        if ($connection === Types::SQLSRV) {
+            Arr::set($default, 'username', 'sa');
+        }
 
         $app->config->set('database.connections.' . $name, $default);
     }

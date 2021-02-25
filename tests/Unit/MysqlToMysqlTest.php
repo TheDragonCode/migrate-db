@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use Helldar\MigrateDB\Constants\Types;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
-use Tests\Constants\Connect;
 use Tests\TestCase;
 
 final class MysqlToMysqlTest extends TestCase
@@ -148,11 +148,11 @@ final class MysqlToMysqlTest extends TestCase
 
     protected function defaultSourceConnectionName(): string
     {
-        return Connect::MYSQL;
+        return Types::MYSQL;
     }
 
     protected function defaultTargetConnectionName(): string
     {
-        return Connect::MYSQL;
+        return Types::MYSQL;
     }
 }

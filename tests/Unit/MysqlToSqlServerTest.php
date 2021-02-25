@@ -8,7 +8,7 @@ use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-final class PostgresToPostgresTest extends TestCase
+final class MysqlToSqlServerTest extends TestCase
 {
     public function testFillable()
     {
@@ -148,11 +148,12 @@ final class PostgresToPostgresTest extends TestCase
 
     protected function defaultSourceConnectionName(): string
     {
-        return Types::POSTGRES;
+        return Types::MYSQL;
     }
 
     protected function defaultTargetConnectionName(): string
     {
-        return Types::POSTGRES;
+        return Types::SQLSRV;
     }
 }
+

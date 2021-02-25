@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use Helldar\MigrateDB\Constants\Types;
 use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
-use Tests\Constants\Connect;
 
 final class PostgresToMysqlTest extends \Tests\TestCase
 {
@@ -147,11 +147,11 @@ final class PostgresToMysqlTest extends \Tests\TestCase
 
     protected function defaultSourceConnectionName(): string
     {
-        return Connect::POSTGRES;
+        return Types::POSTGRES;
     }
 
     protected function defaultTargetConnectionName(): string
     {
-        return Connect::MYSQL;
+        return Types::MYSQL;
     }
 }

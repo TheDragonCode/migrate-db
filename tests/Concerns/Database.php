@@ -2,14 +2,21 @@
 
 namespace Tests\Concerns;
 
+use Helldar\MigrateDB\Constants\Types;
 use Tests\Connectors\MySqlConnection;
 use Tests\Connectors\PostgresConnection;
-use Tests\Constants\Connect;
+use Tests\Connectors\SqlServerConnection;
 
 /** @mixin \Tests\Concerns\Connections */
 trait Database
 {
     use Seeders;
+
+    protected $connectors = [
+        Types::SQLSRV   => SqlServerConnection::class,
+        Types::MYSQL    => MySqlConnection::class,
+        Types::POSTGRES => PostgresConnection::class,
+    ];
 
     protected $table_foo = 'foo';
 
@@ -54,12 +61,7 @@ trait Database
      */
     protected function getDatabaseConnector(string $connection): string
     {
-        $connectors = [
-            Connect::MYSQL    => MySqlConnection::class,
-            Connect::POSTGRES => PostgresConnection::class,
-        ];
-
-        return $connectors[$connection];
+        return $this->connectors[$connection];
     }
 
     protected function cleanTestDatabase(): void
