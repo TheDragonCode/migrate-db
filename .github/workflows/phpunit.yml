@@ -17,6 +17,9 @@ jobs:
             -   name: Checkout code
                 uses: actions/checkout@v2
 
+            -   name: Shutdown MySQL
+                run: sudo service mysql stop
+
             -   name: Setup MySQL
                 uses: mirromutth/mysql-action@v1
                 with:
