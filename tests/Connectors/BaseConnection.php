@@ -6,15 +6,15 @@ use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectorInterface;
 use Illuminate\Database\Schema\Grammars\Grammar;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use PDO;
+use Tests\Configurations\BaseConfiguration;
 
 abstract class BaseConnection
 {
     use Makeable;
 
-    protected $config = [];
+    /** @var \Tests\Configurations\BaseConfiguration */
+    protected $configuration;
 
     protected $default_database;
 
@@ -24,10 +24,21 @@ abstract class BaseConnection
 
     protected $grammar;
 
+    abstract protected function grammar(): Grammar;
+
+    abstract protected function connector(): ConnectorInterface;
+
     public function of(string $database, string $driver): self
     {
         $this->database = $database;
         $this->driver   = $driver;
+
+        return $this;
+    }
+
+    public function configuration(BaseConfiguration $configuration): self
+    {
+        $this->configuration = $configuration;
 
         return $this;
     }
@@ -50,10 +61,6 @@ abstract class BaseConnection
         return $this;
     }
 
-    abstract protected function grammar(): Grammar;
-
-    abstract protected function connector(): ConnectorInterface;
-
     protected function query(string $query): void
     {
         $this->connection()->query($query);
@@ -68,23 +75,9 @@ abstract class BaseConnection
 
     protected function config(): array
     {
-        if (! empty($this->config)) {
-            return $this->config;
-        }
+        $this->configuration->setDatabase($this->default_database);
 
-        return $this->config = $this->cleanConfig($this->getConfig());
-    }
-
-    protected function cleanConfig(array $config): array
-    {
-        Arr::set($config, 'database', $this->default_database);
-
-        return $config;
-    }
-
-    protected function getConfig(): array
-    {
-        return Config::get('database.connections.' . $this->driver);
+        return $this->configuration->toArray();
     }
 
     protected function database(string $name = null): string
@@ -103,6 +96,6 @@ abstract class BaseConnection
 
     protected function databaseConnection(): Connection
     {
-        return new Connection($this->connection(), '', '', $this->getConfig());
+        return new Connection($this->connection(), '', '', $this->config());
     }
 }

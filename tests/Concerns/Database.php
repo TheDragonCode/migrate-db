@@ -3,6 +3,9 @@
 namespace Tests\Concerns;
 
 use Helldar\MigrateDB\Constants\Drivers;
+use Illuminate\Support\Facades\Config;
+use Tests\Configurations\BaseConfiguration;
+use Tests\Configurations\Manager;
 use Tests\Connectors\MySqlConnection;
 use Tests\Connectors\PostgresConnection;
 use Tests\Connectors\SqlServerConnection;
@@ -48,8 +51,11 @@ trait Database
     {
         $instance = $this->getDatabaseConnector($connection);
 
+        $config = $this->getConnectionConfiguration($connection);
+
         $instance::make()
             ->of($database, $connection)
+            ->configuration($config)
             ->dropDatabase()
             ->createDatabase();
     }
@@ -62,6 +68,14 @@ trait Database
     protected function getDatabaseConnector(string $connection): string
     {
         return $this->connectors[$connection];
+    }
+
+    protected function getConnectionConfiguration(string $connection): BaseConfiguration
+    {
+        $driver = Config::get('database.connections.' . $connection . '.driver');
+        $config = Config::get('database.connections.' . $connection);
+
+        return Manager::make()->get($driver)->merge($config);
     }
 
     protected function cleanTestDatabase(): void

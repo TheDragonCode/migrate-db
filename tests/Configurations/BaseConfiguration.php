@@ -16,7 +16,14 @@ abstract class BaseConfiguration implements Arrayable
         $this->configuration = $configuration;
     }
 
-    public function setDatabase(string $name): self
+    public function merge(array $config): self
+    {
+        $this->configuration->merge($config);
+
+        return $this;
+    }
+
+    public function setDatabase(?string $name): self
     {
         $this->configuration->setDatabase($name);
 

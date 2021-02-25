@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  * @method void setDriver(string $value)
  * @method void setHost(string $value)
  * @method void setPort(string $value)
- * @method void setDatabase(string $value)
+ * @method void setDatabase(string|null $value)
  * @method void setUsername(string $value)
  * @method void setPassword(string $value)
  * @method void setSchema(string $value)
@@ -38,6 +38,13 @@ final class Configuration implements Arrayable
         'engine'         => null,
         'options'        => [],
     ];
+
+    public function merge(array $config): self
+    {
+        $this->config = array_merge($this->config, $config);
+
+        return $this;
+    }
 
     public function __call(string $name, array $value): void
     {
