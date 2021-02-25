@@ -14,9 +14,6 @@ use Illuminate\Support\Str;
  * @method void setDatabase(string $value)
  * @method void setUsername(string $value)
  * @method void setPassword(string $value)
- * @method void setCharset(string $value)
- * @method void setCollation(string $value)
- * @method void setOptions(array $value)
  * @method void setSchema(string $value)
  * @method void setSslmode(string $value)
  */
