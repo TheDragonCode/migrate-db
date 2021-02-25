@@ -8,20 +8,20 @@ use Illuminate\Support\Facades\Schema;
 
 trait Connections
 {
+    protected $source_connection = 'foo_db';
+
+    protected $target_connection = 'bar_db';
+
     abstract protected function defaultSourceConnectionName(): string;
 
     abstract protected function defaultTargetConnectionName(): string;
-
-    abstract protected function currentSourceConnection(): string;
-
-    abstract protected function currentTargetConnection(): string;
 
     /**
      * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
      */
     protected function sourceConnection(): Builder
     {
-        return Schema::connection($this->currentSourceConnection());
+        return Schema::connection($this->source_connection);
     }
 
     /**
@@ -29,13 +29,13 @@ trait Connections
      */
     protected function targetConnection(): Builder
     {
-        return Schema::connection($this->currentTargetConnection());
+        return Schema::connection($this->target_connection);
     }
 
     protected function setDatabaseConnections($app): void
     {
-        $this->setDatabaseConnection($app, $this->currentSourceConnection(), $this->defaultSourceConnectionName());
-        $this->setDatabaseConnection($app, $this->currentTargetConnection(), $this->defaultTargetConnectionName());
+        $this->setDatabaseConnection($app, $this->source_connection, $this->defaultSourceConnectionName());
+        $this->setDatabaseConnection($app, $this->target_connection, $this->defaultTargetConnectionName());
     }
 
     protected function setDatabaseConnection($app, string $name, string $connection): void

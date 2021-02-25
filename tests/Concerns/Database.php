@@ -2,8 +2,10 @@
 
 namespace Tests\Concerns;
 
-use Tests\Services\MySqlConnection;
+use Tests\Connectors\MySqlConnection;
+use Tests\Connectors\PostgresConnection;
 
+/** @mixin \Tests\Concerns\Connections */
 trait Database
 {
     use Seeders;
@@ -16,8 +18,6 @@ trait Database
 
     protected function setDatabases($app): void
     {
-        $app->config->set('database.default', $this->currentSourceConnection());
-
         $this->setDatabaseConnections($app);
     }
 
@@ -32,20 +32,37 @@ trait Database
 
     protected function createDatabases(): void
     {
-        $this->createDatabase($this->currentSourceConnection());
-        $this->createDatabase($this->currentTargetConnection());
+        $this->createDatabase($this->source_connection, $this->defaultSourceConnectionName());
+        $this->createDatabase($this->target_connection, $this->defaultTargetConnectionName());
     }
 
-    protected function createDatabase(string $name): void
+    protected function createDatabase(string $database, string $connection): void
     {
-        MySqlConnection::make()
-            ->of($name)
+        $instance = $this->getDatabaseConnector($connection);
+
+        $instance::make()
+            ->of($database, $connection)
             ->dropDatabase()
             ->createDatabase();
     }
 
+    /**
+     * @param  string  $connection
+     *
+     * @return \Tests\Connectors\BaseConnection|string
+     */
+    protected function getDatabaseConnector(string $connection): string
+    {
+        $connectors = [
+            'mysql' => MySqlConnection::class,
+            'pgsql' => PostgresConnection::class,
+        ];
+
+        return $connectors[$connection];
+    }
+
     protected function cleanTestDatabase(): void
     {
-        $this->artisan('migrate', ['--database' => $this->currentSourceConnection()])->run();
+        $this->artisan('migrate', ['--database' => $this->source_connection])->run();
     }
 }

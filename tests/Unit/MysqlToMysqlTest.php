@@ -15,8 +15,8 @@ final class MysqlToMysqlTest extends TestCase
         $this->assertEmpty($this->targetConnection()->getAllTables());
 
         $this->artisan('db:migrate', [
-            '--schema-from' => $this->currentSourceConnection(),
-            '--schema-to'   => $this->currentTargetConnection(),
+            '--schema-from' => $this->source_connection,
+            '--schema-to'   => $this->target_connection,
         ])->assertExitCode(0)->run();
 
         $this->assertNotEmpty($this->sourceConnection()->getAllTables());
@@ -25,76 +25,76 @@ final class MysqlToMysqlTest extends TestCase
 
     public function testCount()
     {
-        $this->assertDatabaseCount($this->table_foo, 3, $this->currentSourceConnection());
-        $this->assertDatabaseCount($this->table_bar, 3, $this->currentSourceConnection());
-        $this->assertDatabaseCount($this->table_baz, 3, $this->currentSourceConnection());
+        $this->assertDatabaseCount($this->table_foo, 3, $this->source_connection);
+        $this->assertDatabaseCount($this->table_bar, 3, $this->source_connection);
+        $this->assertDatabaseCount($this->table_baz, 3, $this->source_connection);
 
         $this->artisan('db:migrate', [
-            '--schema-from' => $this->currentSourceConnection(),
-            '--schema-to'   => $this->currentTargetConnection(),
+            '--schema-from' => $this->source_connection,
+            '--schema-to'   => $this->target_connection,
         ])->assertExitCode(0)->run();
 
-        $this->assertDatabaseCount($this->table_foo, 3, $this->currentSourceConnection());
-        $this->assertDatabaseCount($this->table_bar, 3, $this->currentSourceConnection());
-        $this->assertDatabaseCount($this->table_baz, 3, $this->currentSourceConnection());
+        $this->assertDatabaseCount($this->table_foo, 3, $this->source_connection);
+        $this->assertDatabaseCount($this->table_bar, 3, $this->source_connection);
+        $this->assertDatabaseCount($this->table_baz, 3, $this->source_connection);
 
-        $this->assertDatabaseCount($this->table_foo, 3, $this->currentTargetConnection());
-        $this->assertDatabaseCount($this->table_bar, 3, $this->currentTargetConnection());
-        $this->assertDatabaseCount($this->table_baz, 3, $this->currentTargetConnection());
+        $this->assertDatabaseCount($this->table_foo, 3, $this->target_connection);
+        $this->assertDatabaseCount($this->table_bar, 3, $this->target_connection);
+        $this->assertDatabaseCount($this->table_baz, 3, $this->target_connection);
     }
 
     public function testData()
     {
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->currentSourceConnection());
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->source_connection);
 
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->currentSourceConnection());
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->source_connection);
 
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->currentSourceConnection());
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->currentSourceConnection());
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->source_connection);
 
         $this->artisan('db:migrate', [
-            '--schema-from' => $this->currentSourceConnection(),
-            '--schema-to'   => $this->currentTargetConnection(),
+            '--schema-from' => $this->source_connection,
+            '--schema-to'   => $this->target_connection,
         ])->assertExitCode(0)->run();
 
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->currentTargetConnection());
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_foo, ['value' => 'foo_3'], $this->target_connection);
 
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->currentTargetConnection());
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_bar, ['value' => 'bar_3'], $this->target_connection);
 
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->currentTargetConnection());
-        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->currentTargetConnection());
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_baz, ['value' => 'baz_3'], $this->target_connection);
     }
 
     public function testSame()
     {
         $this->artisan('db:migrate', [
-            '--schema-from' => $this->currentSourceConnection(),
-            '--schema-to'   => $this->currentTargetConnection(),
+            '--schema-from' => $this->source_connection,
+            '--schema-to'   => $this->target_connection,
         ])->assertExitCode(0)->run();
 
         $this->assertSame(
-            $this->tableData($this->currentSourceConnection(), $this->table_foo),
-            $this->tableData($this->currentTargetConnection(), $this->table_foo)
+            $this->tableData($this->source_connection, $this->table_foo),
+            $this->tableData($this->target_connection, $this->table_foo)
         );
 
         $this->assertSame(
-            $this->tableData($this->currentSourceConnection(), $this->table_bar),
-            $this->tableData($this->currentTargetConnection(), $this->table_bar)
+            $this->tableData($this->source_connection, $this->table_bar),
+            $this->tableData($this->target_connection, $this->table_bar)
         );
 
         $this->assertSame(
-            $this->tableData($this->currentSourceConnection(), $this->table_baz),
-            $this->tableData($this->currentTargetConnection(), $this->table_baz)
+            $this->tableData($this->source_connection, $this->table_baz),
+            $this->tableData($this->target_connection, $this->table_baz)
         );
     }
 
@@ -111,7 +111,7 @@ final class MysqlToMysqlTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "schema-from" option does not exist.');
 
-        $this->artisan('db:migrate', ['--schema-to' => $this->currentTargetConnection()])->run();
+        $this->artisan('db:migrate', ['--schema-to' => $this->target_connection])->run();
     }
 
     public function testToFailed()
@@ -119,7 +119,7 @@ final class MysqlToMysqlTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "schema-to" option does not exist.');
 
-        $this->artisan('db:migrate', ['--schema-from' => $this->currentSourceConnection()])->run();
+        $this->artisan('db:migrate', ['--schema-from' => $this->source_connection])->run();
     }
 
     public function testFailedFromConnectionName()
@@ -127,7 +127,7 @@ final class MysqlToMysqlTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
-        $this->artisan('db:migrate', ['--schema-from' => 'qwerty', '--schema-to' => $this->currentTargetConnection()])->run();
+        $this->artisan('db:migrate', ['--schema-from' => 'qwerty', '--schema-to' => $this->target_connection])->run();
     }
 
     public function testFailedToConnectionName()
@@ -135,7 +135,7 @@ final class MysqlToMysqlTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
-        $this->artisan('db:migrate', ['--schema-from' => $this->currentSourceConnection(), '--schema-to' => 'qwerty'])->run();
+        $this->artisan('db:migrate', ['--schema-from' => $this->source_connection, '--schema-to' => 'qwerty'])->run();
     }
 
     protected function tableData(string $connection, string $table): array
@@ -143,16 +143,6 @@ final class MysqlToMysqlTest extends TestCase
         $items = DB::connection($connection)->table($table)->get();
 
         return Arr::toArray($items);
-    }
-
-    protected function currentSourceConnection(): string
-    {
-        return 'mysql_foo';
-    }
-
-    protected function currentTargetConnection(): string
-    {
-        return 'mysql_bar';
     }
 
     protected function defaultSourceConnectionName(): string

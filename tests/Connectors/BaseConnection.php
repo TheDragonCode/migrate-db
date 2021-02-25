@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Services;
+namespace Tests\Connectors;
 
 use Helldar\Support\Concerns\Makeable;
-use Illuminate\Database\Connectors\MySqlConnector;
+use Illuminate\Database\Connectors\ConnectorInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use PDO;
 
-final class MySqlConnection
+abstract class BaseConnection
 {
     use Makeable;
 
@@ -16,9 +16,14 @@ final class MySqlConnection
 
     protected $database;
 
-    public function of(string $name): self
+    protected $driver;
+
+    abstract protected function connector(): ConnectorInterface;
+
+    public function of(string $database, string $driver): self
     {
-        $this->database = $name;
+        $this->database = $database;
+        $this->driver   = $driver;
 
         return $this;
     }
@@ -53,25 +58,15 @@ final class MySqlConnection
         return $this->connector()->connect($config);
     }
 
-    protected function connector(): MySqlConnector
-    {
-        return new MySqlConnector();
-    }
-
     protected function config(): array
     {
         if (! empty($this->config)) {
             return $this->config;
         }
 
-        $config = Config::get('database.connections.' . $this->driver());
+        $config = Config::get('database.connections.' . $this->driver);
 
         return $this->config = $this->cleanConfig($config);
-    }
-
-    protected function driver(): string
-    {
-        return Config::get('database.default');
     }
 
     protected function cleanConfig(array $config): array

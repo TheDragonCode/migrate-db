@@ -15,7 +15,7 @@ trait Seeders
 
     protected function fillTable(string $table): void
     {
-        DB::table($table)->insert([
+        DB::connection($this->source_connection)->table($table)->insert([
             ['value' => $table . '_1'],
             ['value' => $table . '_2'],
             ['value' => $table . '_3'],
