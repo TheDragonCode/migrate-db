@@ -8,5 +8,5 @@ final class Drivers
 
     public const POSTGRES = 'pgsql';
 
-    public const SQLSRV = 'sqlsrv';
+    public const SQL_SERVER = 'sqlsrv';
 }

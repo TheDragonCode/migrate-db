@@ -12,7 +12,7 @@ final class SqlServer extends BaseConfiguration
 
         $this->configuration->setHost(env('SQLSRV_HOST', 'sqlsrv'));
 
-        $this->configuration->setDriver(Drivers::SQLSRV);
+        $this->configuration->setDriver(Drivers::SQL_SERVER);
         $this->configuration->setPort(1433);
 
         $this->configuration->setUsername('sa');

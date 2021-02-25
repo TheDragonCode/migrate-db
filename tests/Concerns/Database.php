@@ -16,9 +16,9 @@ trait Database
     use Seeders;
 
     protected $connectors = [
-        Drivers::MYSQL    => MySqlConnection::class,
-        Drivers::POSTGRES => PostgresConnection::class,
-        Drivers::SQLSRV   => SqlServerConnection::class,
+        Drivers::MYSQL      => MySqlConnection::class,
+        Drivers::POSTGRES   => PostgresConnection::class,
+        Drivers::SQL_SERVER => SqlServerConnection::class,
     ];
 
     protected $table_foo = 'foo';

@@ -10,9 +10,9 @@ final class Manager
     use Makeable;
 
     protected $available = [
-        Drivers::MYSQL    => MySQL::class,
-        Drivers::POSTGRES => Postgres::class,
-        Drivers::SQLSRV   => SqlServer::class,
+        Drivers::MYSQL      => MySQL::class,
+        Drivers::POSTGRES   => Postgres::class,
+        Drivers::SQL_SERVER => SqlServer::class,
     ];
 
     public function get(string $driver): BaseConfiguration
