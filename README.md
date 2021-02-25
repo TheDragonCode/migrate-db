@@ -52,8 +52,8 @@ $ php artisan db:migrate --schema-from=foo --schema-to=bar
 
 where:
 
-* `foo` - Source connection name
-* `bar` - Target connection name
+* `foo` - Source [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
+* `bar` - Target [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
 
 The command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
 
