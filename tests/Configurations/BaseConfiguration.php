@@ -52,6 +52,11 @@ abstract class BaseConfiguration implements Arrayable
         }
     }
 
+    protected function fillUsername(): void
+    {
+        $this->configuration->setUsername(env('DB_USERNAME'));
+    }
+
     protected function fillPassword(): void
     {
         $this->configuration->setPassword(env('DB_PASSWORD'));
