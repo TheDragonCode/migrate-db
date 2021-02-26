@@ -27,7 +27,7 @@ Easy data transfer from one database to another
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/migrate-db
+$ composer require andrey-helldar/migrate-db --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
