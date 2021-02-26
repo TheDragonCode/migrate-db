@@ -2,7 +2,7 @@ name: coverage
 on:
     push:
         branches:
-#            - main
+            - main
             - coverage
 
 jobs:
@@ -10,6 +10,25 @@ jobs:
         runs-on: ubuntu-20.04
 
         name: Coverage
+
+        services:
+            mysql:
+                image: mysql:latest
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: default
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+            postgres:
+                image: postgres:alpine
+                ports:
+                    - 5432:5432
+                env:
+                    POSTGRES_DB: default
+                    POSTGRES_USER: default
+                    POSTGRES_PASSWORD: root
 
         steps:
             -   name: Checkout code
@@ -19,11 +38,9 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: 7.4
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv, bcmath
-                    coverage: xdebug
-
-            -   name: Composer self update
-                run: composer self-update
+                    extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, pdo_mysql, pdo_pgsql
+                    tools: composer:v2
+                    coverage: none
 
             -   name: Install dependencies
                 run: composer update --prefer-stable --prefer-dist --no-progress --no-interaction
@@ -32,6 +49,9 @@ jobs:
                 run: |
                     mkdir -p build/logs
                     sudo vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+                env:
+                    MYSQL_HOST: 127.0.0.1
+                    PGSQL_HOST: 127.0.0.1
 
             -   name: Export
                 run: |
