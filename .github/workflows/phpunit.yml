@@ -1,8 +1,9 @@
 name: phpunit
 on: [ push ]
 
-#env:
-#    MYSQL_ROOT_PASSWORD: root
+env:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_HOST: 127.0.0.1
 
 jobs:
     build:
@@ -27,22 +28,22 @@ jobs:
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_pgsql, iconv, bcmath
                     coverage: none
 
-#            -   name: Shutdown MySQL
-#                run: sudo service mysql stop
+            -   name: Shutdown MySQL
+                run: sudo service mysql stop
 
-#            -   name: Setup MySQL
-#                uses: mirromutth/mysql-action@v1
-#                with:
-#                    mysql version: 'latest'
-#                    character set server: 'utf8mb4'
-#                    collation server: 'utf8mb4_unicode_ci'
-#                    mysql root password: $MYSQL_ROOT_PASSWORD
+            -   name: Setup MySQL
+                uses: mirromutth/mysql-action@v1
+                with:
+                    mysql version: 'latest'
+                    character set server: 'utf8mb4'
+                    collation server: 'utf8mb4_unicode_ci'
+                    mysql root password: $MYSQL_ROOT_PASSWORD
 
-#            -   name: Wait for MySQL
-#                run: |
-#                    while ! mysqladmin ping --host=127.0.0.1 --password=$MYSQL_ROOT_PASSWORD --silent; do
-#                      sleep 1
-#                    done
+            -   name: Wait for MySQL
+                run: |
+                    while ! mysqladmin ping --host=$MYSQL_HOST --password=$MYSQL_ROOT_PASSWORD --silent; do
+                      sleep 1
+                    done
 
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
