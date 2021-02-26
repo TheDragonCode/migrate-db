@@ -30,7 +30,6 @@
         <env name="DB_PASSWORD" value="root"/>
         <env name="MYSQL_HOST" value="127.0.0.1"/>
         <env name="PGSQL_HOST" value="127.0.0.1"/>
-        <env name="SQLSRV_HOST" value="127.0.0.1"/>
     </php>
     <testsuites>
         <testsuite name="Test Suite">

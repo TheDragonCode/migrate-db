@@ -22,8 +22,8 @@ jobs:
 
             -   name: Setup MySQL
                 uses: mirromutth/mysql-action@v1
-                env:
-                    INPUT_MYSQL_ROOT_PASSWORD: root
+                with:
+                    mysql root password: root
 
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
