@@ -23,6 +23,6 @@ final class SqlServer extends BaseConfiguration
     {
         parent::fill();
 
-        $this->configuration->setHost(env('SQLSRV_HOST', 'sqlsrv'));
+        $this->configuration->setHost(env('SQLSRV_HOST', '127.0.0.1'));
     }
 }

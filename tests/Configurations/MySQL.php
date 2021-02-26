@@ -28,7 +28,7 @@ final class MySQL extends BaseConfiguration
     {
         parent::fill();
 
-        $this->configuration->setHost(env('MYSQL_HOST', 'mysql'));
+        $this->configuration->setHost(env('MYSQL_HOST', '127.0.0.1'));
 
         $this->configuration->setUsername(env('DB_USERNAME'));
     }
