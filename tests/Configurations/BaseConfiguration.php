@@ -9,11 +9,13 @@ abstract class BaseConfiguration implements Arrayable
 {
     use Makeable;
 
+    protected $config = [];
+
     protected $configuration;
 
     public function __construct(Configuration $configuration)
     {
-        $this->configuration = $configuration;
+        $this->configuration = $configuration->merge($this->config);
     }
 
     public function merge(array $config): self
@@ -23,7 +25,7 @@ abstract class BaseConfiguration implements Arrayable
         return $this;
     }
 
-    public function setDatabase(?string $name): self
+    public function setDatabase(string $name = null): self
     {
         $this->configuration->setDatabase($name);
 
@@ -39,9 +41,19 @@ abstract class BaseConfiguration implements Arrayable
 
     protected function fill(): void
     {
-        $this->configuration->setDatabase('default');
+        $this->fillDatabase();
+        $this->fillPassword();
+    }
 
-        $this->configuration->setUsername(env('DB_USERNAME'));
+    protected function fillDatabase(): void
+    {
+        if ($this->configuration->doesntDatabase()) {
+            $this->configuration->setDatabase('default');
+        }
+    }
+
+    protected function fillPassword(): void
+    {
         $this->configuration->setPassword(env('DB_PASSWORD'));
     }
 }

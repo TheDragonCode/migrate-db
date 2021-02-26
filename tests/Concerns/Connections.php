@@ -48,8 +48,8 @@ trait Connections
         $app->config->set('database.connections.' . $connection, $configurator->toArray());
     }
 
-    protected function getConfigurator(string $connection): BaseConfiguration
+    protected function getConfigurator(string $driver): BaseConfiguration
     {
-        return Manager::make()->get($connection);
+        return Manager::make()->get($driver);
     }
 }

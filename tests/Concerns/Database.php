@@ -36,6 +36,8 @@ trait Database
     {
         $this->createDatabases();
 
+        $this->runMigrations();
+
         $this->fillTables();
     }
 
@@ -45,14 +47,14 @@ trait Database
         $this->createDatabase($this->target_connection, $this->defaultTargetConnectionName());
     }
 
-    protected function createDatabase(string $database, string $connection): void
+    protected function createDatabase(string $database, string $driver): void
     {
-        $instance = $this->getDatabaseConnector($connection);
+        $instance = $this->getDatabaseConnector($driver);
 
-        $config = $this->getConnectionConfiguration($connection);
+        $config = $this->getConnectionConfiguration($database, $driver);
 
         $instance::make()
-            ->of($database, $connection)
+            ->of($database, $driver)
             ->configuration($config)
             ->dropDatabase()
             ->createDatabase();
@@ -68,11 +70,18 @@ trait Database
         return $this->connectors[$connection];
     }
 
-    protected function getConnectionConfiguration(string $connection): BaseConfiguration
+    protected function getConnectionConfiguration(string $connection, string $driver): BaseConfiguration
     {
-        $driver = Config::get('database.connections.' . $connection . '.driver');
         $config = Config::get('database.connections.' . $connection);
 
-        return Manager::make()->get($driver)->merge($config);
+        return Manager::make()
+            ->get($driver)
+            ->merge($config)
+            ->setDatabase();
+    }
+
+    protected function runMigrations(): void
+    {
+        $this->artisan('migrate', ['--database' => $this->source_connection])->run();
     }
 }
