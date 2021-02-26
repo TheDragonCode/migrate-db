@@ -2,6 +2,10 @@
 
 Easy data transfer from one database to another
 
+<p align="center">
+    <img src="/.github/images/screenshoot.png?raw=true" alt="Migrate DB"/>
+</p>
+
 [![StyleCI Status][badge_styleci]][link_styleci]
 [![Github Workflow Status][badge_build]][link_build]
 [![Coverage Status][badge_coverage]][link_scrutinizer]
