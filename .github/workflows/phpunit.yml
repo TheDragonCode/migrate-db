@@ -17,6 +17,13 @@ jobs:
             -   name: Checkout code
                 uses: actions/checkout@v2
 
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_pgsql, iconv, bcmath
+                    coverage: none
+
             -   name: Shutdown MySQL
                 run: sudo service mysql stop
 
@@ -26,20 +33,13 @@ jobs:
                     mysql root password: root
 
             -   name: Start MySQL
-                run: sudo service mysql start
+                run: sudo service mysql restart
 
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
                 with:
                     postgresql password: root
                     postgresql user: root
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_pgsql, iconv, bcmath
-                    coverage: none
 
             -   name: Install dependencies
                 run: |
