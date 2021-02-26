@@ -12,7 +12,7 @@ final class Postgres extends BaseConfiguration
         'host'           => '127.0.0.1',
         'port'           => '5432',
         'database'       => 'forge',
-        'username'       => 'root',
+        'username'       => 'default',
         'password'       => 'root',
         'charset'        => 'utf8',
         'prefix'         => '',
@@ -26,5 +26,7 @@ final class Postgres extends BaseConfiguration
         parent::fill();
 
         $this->configuration->setHost(env('PGSQL_HOST', '127.0.0.1'));
+
+        $this->configuration->setUsername(env('PGSQL_USERNAME'));
     }
 }
