@@ -13,7 +13,7 @@ jobs:
 
         services:
             mysql:
-                image: mysql:latest
+                image: mysql:5.7
                 env:
                     MYSQL_ROOT_PASSWORD: root
                     MYSQL_DATABASE: default
@@ -40,7 +40,7 @@ jobs:
                     php-version: 7.4
                     extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, pdo_mysql, pdo_pgsql
                     tools: composer:v2
-                    coverage: none
+                    coverage: xdebug
 
             -   name: Install dependencies
                 run: composer update --prefer-stable --prefer-dist --no-progress --no-interaction
