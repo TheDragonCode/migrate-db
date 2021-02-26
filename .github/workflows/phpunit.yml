@@ -1,10 +1,6 @@
 name: phpunit
 on: [ push ]
 
-env:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_HOST: 127.0.0.1
-
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -17,6 +13,16 @@ jobs:
 
         name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
 
+        services:
+            mysql:
+                image: mysql:latest
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: forge
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v2
@@ -25,25 +31,9 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_pgsql, iconv, bcmath
+                    extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, pdo_mysql, pdo_pgsql
+                    tools: composer:v2
                     coverage: none
-
-            -   name: Shutdown MySQL
-                run: sudo service mysql stop
-
-            -   name: Setup MySQL
-                uses: mirromutth/mysql-action@v1
-                with:
-                    mysql version: 'latest'
-                    character set server: 'utf8mb4'
-                    collation server: 'utf8mb4_unicode_ci'
-                    mysql root password: $MYSQL_ROOT_PASSWORD
-
-            -   name: Wait for MySQL
-                run: |
-                    while ! mysqladmin ping --host=$MYSQL_HOST --password=$MYSQL_ROOT_PASSWORD --silent; do
-                      sleep 1
-                    done
 
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
@@ -58,3 +48,8 @@ jobs:
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
+                env:
+                    MYSQL_HOST: 127.0.0.1
+                    PGSQL_HOST: 127.0.0.1
+                    DB_USERNAME: root
+                    DB_PASSWORD: root
