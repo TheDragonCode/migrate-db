@@ -1,6 +1,9 @@
 name: phpunit
 on: [ push ]
 
+env:
+    MYSQL_ROOT_PASSWORD: root
+
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -31,8 +34,6 @@ jobs:
                 uses: mirromutth/mysql-action@v1
                 with:
                     mysql root password: root
-
-            -   name: Start MySQL
                 run: sudo service mysql restart
 
             -   name: Setup PostgreSQL
