@@ -15,13 +15,13 @@ jobs:
 
         services:
             mysql:
-                image: mysql:latest
+                image: mysql:5.7
                 env:
                     MYSQL_ROOT_PASSWORD: root
                     MYSQL_DATABASE: default
                 ports:
                     - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --default-authentication-plugin=mysql_native_password
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
             postgres:
                 image: postgres:alpine
