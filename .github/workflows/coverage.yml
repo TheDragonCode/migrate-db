@@ -27,7 +27,7 @@ jobs:
                     - 5432:5432
                 env:
                     POSTGRES_DB: default
-                    POSTGRES_USER: default
+                    POSTGRES_USER: root
                     POSTGRES_PASSWORD: root
 
         steps:

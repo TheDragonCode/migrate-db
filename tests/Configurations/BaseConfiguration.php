@@ -42,6 +42,7 @@ abstract class BaseConfiguration implements Arrayable
     protected function fill(): void
     {
         $this->fillDatabase();
+        $this->fillUsername();
         $this->fillPassword();
     }
 
@@ -50,6 +51,11 @@ abstract class BaseConfiguration implements Arrayable
         if ($this->configuration->doesntDatabase()) {
             $this->configuration->setDatabase('default');
         }
+    }
+
+    protected function fillUsername(): void
+    {
+        $this->configuration->setUsername(env('DB_USERNAME'));
     }
 
     protected function fillPassword(): void
