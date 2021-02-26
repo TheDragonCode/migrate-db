@@ -25,6 +25,9 @@ jobs:
                 with:
                     mysql root password: root
 
+            -   name: Start MySQL
+                run: sudo service mysql start
+
             -   name: Setup PostgreSQL
                 uses: huaxk/postgis-action@v1
                 with:
