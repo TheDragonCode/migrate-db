@@ -26,5 +26,7 @@ final class Postgres extends BaseConfiguration
         parent::fill();
 
         $this->configuration->setHost(env('PGSQL_HOST', '127.0.0.1'));
+
+        $this->configuration->setUsername(env('PGSQL_USERNAME'));
     }
 }

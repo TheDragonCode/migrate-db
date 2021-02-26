@@ -26,7 +26,8 @@
     </coverage>
     <php>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
-        <env name="DB_USERNAME" value="root"/>
+        <env name="MYSQL_USERNAME" value="root"/>
+        <env name="PGSQL_USERNAME" value="default"/>
         <env name="DB_PASSWORD" value="root"/>
     </php>
     <testsuites>
