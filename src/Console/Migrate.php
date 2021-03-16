@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 final class Migrate extends Command
 {
     protected $signature = 'db:migrate'
-    . ' {--schema-from : Source connection name}'
-    . ' {--schema-to : Target connection name}';
+    . ' {--schema-from= : Source connection name}'
+    . ' {--schema-to= : Target connection name}';
 
     protected $description = 'Data transfer from one database to another';
 
