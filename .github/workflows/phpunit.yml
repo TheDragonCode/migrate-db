@@ -3,15 +3,16 @@ on: [ push ]
 
 jobs:
     build:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
 
         strategy:
             fail-fast: true
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
                 laravel: [ "8.0" ]
+                support: [ "2.0", "3.0" ]
 
-        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
+        name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}, Support ${{ matrix.support }}
 
         services:
             mysql:
@@ -45,9 +46,7 @@ jobs:
                     coverage: none
 
             -   name: Install dependencies
-                run: |
-                    composer require laravel/framework:^${{ matrix.laravel }}
-                    composer update --prefer-stable --prefer-dist --no-progress --no-interaction
+                run: composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
