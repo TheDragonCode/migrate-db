@@ -35,7 +35,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/migrate-db": "^1.0"
+        "andrey-helldar/migrate-db": "^1.1"
     }
 }
 ```
@@ -45,7 +45,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 | Service | Versions |
 |:---|:---|
 | PHP | ^7.2.5, ^8.0 |
-| Laravel | ^7.0, ^8.0 |
+| Laravel | ^8.0 |
 | Databases | MySQL, PostgreSQL, MSSQL |
 
 ## Using

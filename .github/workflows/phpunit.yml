@@ -9,7 +9,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "7.0", "8.0" ]
+                laravel: [ "8.0" ]
                 support: [ "2.0", "3.0" ]
 
         name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}, Support ${{ matrix.support }}
