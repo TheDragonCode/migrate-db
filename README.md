@@ -44,7 +44,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 
 | Service | Versions |
 |:---|:---|
-| PHP | ^7.2.5, ^8.0 |
+| PHP | ^7.3, ^8.0 |
 | Laravel | ^8.0 |
 | Databases | MySQL, PostgreSQL, MSSQL |
 
