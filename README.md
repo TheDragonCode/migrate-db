@@ -16,12 +16,6 @@ Easy data transfer from one database to another
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-## Table of contents
-
-* [Installation](#installation)
-* [Compatibility](#compatibility)
-* [Using](#using)
-
 ## Installation
 
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
