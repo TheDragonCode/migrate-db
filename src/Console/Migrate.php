@@ -25,6 +25,8 @@ final class Migrate extends Command
     /** @var \Helldar\MigrateDB\Contracts\Database\Builder */
     protected $target;
 
+    protected $chunk_count = 1000;
+
     public function handle()
     {
         $this->validateOptions();
@@ -50,7 +52,7 @@ final class Migrate extends Command
     {
         $this->builder($this->source(), $table)
             ->orderBy($column)
-            ->chunk(1000, function (Collection $items) use ($table) {
+            ->chunk($this->chunk_count, function (Collection $items) use ($table) {
                 $items = Arr::toArray($items);
 
                 $this->builder($this->target(), $table)->insert($items);

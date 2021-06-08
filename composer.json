@@ -24,6 +24,7 @@
         "php": "^7.3|^8.0",
         "ext-pdo": "*",
         "andrey-helldar/support": "^2.15|^3.0",
+        "bavix/laravel-clickhouse": "^2.2",
         "illuminate/contracts": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/support": "^8.0"

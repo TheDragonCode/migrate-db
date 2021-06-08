@@ -10,6 +10,7 @@ final class Manager
     use Makeable;
 
     protected $available = [
+        Drivers::CLICKHOUSE => Clickhouse::class,
         Drivers::MYSQL      => MySQL::class,
         Drivers::POSTGRES   => Postgres::class,
         Drivers::SQL_SERVER => SqlServer::class,

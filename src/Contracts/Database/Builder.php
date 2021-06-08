@@ -9,9 +9,7 @@ interface Builder
 {
     public function __construct(Connection $connection);
 
-    /**
-     * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
-     */
+    /** @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder */
     public function schema(): SchemaBuilder;
 
     public function getPrimaryKey(string $table): string;

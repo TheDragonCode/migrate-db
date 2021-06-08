@@ -21,6 +21,8 @@ abstract class Builder implements BuilderContract
         $this->connection = $connection;
     }
 
+    abstract protected function tableNameColumn(): string;
+
     /**
      * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
      */
@@ -59,8 +61,6 @@ abstract class Builder implements BuilderContract
 
         return Arr::first($columns);
     }
-
-    abstract protected function tableNameColumn(): string;
 
     protected function columns(string $table): array
     {

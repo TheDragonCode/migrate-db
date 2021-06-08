@@ -6,6 +6,7 @@ use Helldar\MigrateDB\Constants\Drivers;
 use Illuminate\Support\Facades\Config;
 use Tests\Configurations\BaseConfiguration;
 use Tests\Configurations\Manager;
+use Tests\Connectors\ClickHouseConnection;
 use Tests\Connectors\MySqlConnection;
 use Tests\Connectors\PostgresConnection;
 use Tests\Connectors\SqlServerConnection;
@@ -16,6 +17,7 @@ trait Database
     use Seeders;
 
     protected $connectors = [
+        Drivers::CLICKHOUSE => ClickHouseConnection::class,
         Drivers::MYSQL      => MySqlConnection::class,
         Drivers::POSTGRES   => PostgresConnection::class,
         Drivers::SQL_SERVER => SqlServerConnection::class,

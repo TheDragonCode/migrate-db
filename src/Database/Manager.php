@@ -16,6 +16,7 @@ final class Manager
     protected $connection;
 
     protected $builders = [
+        Drivers::CLICKHOUSE => ClickHouseBuilder::class,
         Drivers::MYSQL      => MySQLBuilder::class,
         Drivers::POSTGRES   => PostgresBuilder::class,
         Drivers::SQL_SERVER => SqlServerBuilder::class,

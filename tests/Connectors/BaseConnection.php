@@ -5,7 +5,6 @@ namespace Tests\Connectors;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectorInterface;
-use Illuminate\Database\Schema\Grammars\Grammar;
 use PDO;
 use Tests\Configurations\BaseConfiguration;
 
@@ -23,6 +22,10 @@ abstract class BaseConnection
     protected $driver;
 
     protected $grammar;
+
+    abstract protected function grammar();
+
+    abstract protected function connector(): ConnectorInterface;
 
     public function of(string $database, string $driver): self
     {
@@ -57,16 +60,12 @@ abstract class BaseConnection
         return $this;
     }
 
-    abstract protected function grammar(): Grammar;
-
-    abstract protected function connector(): ConnectorInterface;
-
     protected function query(string $query): void
     {
         $this->connection()->query($query);
     }
 
-    protected function connection(): PDO
+    protected function connection()
     {
         $config = $this->config();
 
@@ -85,7 +84,10 @@ abstract class BaseConnection
         return $name ?: $this->database;
     }
 
-    protected function getGrammar(): Grammar
+    /**
+     * @return \Illuminate\Database\Schema\Grammars\Grammar|\Tinderbox\ClickhouseBuilder\Query\Grammar
+     */
+    protected function getGrammar()
     {
         if ($this->grammar) {
             return $this->grammar;

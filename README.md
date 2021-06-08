@@ -40,7 +40,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 |:---|:---|
 | PHP | ^7.3, ^8.0 |
 | Laravel | ^8.0 |
-| Databases | MySQL, PostgreSQL, MSSQL |
+| Databases | MySQL, PostgreSQL, MSSQL, Clickhouse |
 
 ## Using
 
