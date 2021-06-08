@@ -5,7 +5,6 @@ namespace Tests\Connectors;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectorInterface;
-use PDO;
 use Tests\Configurations\BaseConfiguration;
 
 abstract class BaseConnection
@@ -22,10 +21,6 @@ abstract class BaseConnection
     protected $driver;
 
     protected $grammar;
-
-    abstract protected function grammar();
-
-    abstract protected function connector(): ConnectorInterface;
 
     public function of(string $database, string $driver): self
     {
@@ -59,6 +54,10 @@ abstract class BaseConnection
 
         return $this;
     }
+
+    abstract protected function grammar();
+
+    abstract protected function connector(): ConnectorInterface;
 
     protected function query(string $query): void
     {
