@@ -13,7 +13,7 @@ jobs:
                 support: [ "2.0", "3.0", "4.0" ]
                 psql: [ "9-alpine", "10-alpine", "11-alpine", "12-alpine", "13-alpine" ]
 
-        name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}, Support ${{ matrix.support }}
+        name: php ${{ matrix.php }}, l ${{ matrix.laravel }}, s ${{ matrix.support }}, pg ${{ matrix.psql }}
 
         services:
             mysql:
