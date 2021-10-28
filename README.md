@@ -2,9 +2,7 @@
 
 Easy data transfer from one database to another
 
-<p align="center">
-    <img src="/.github/images/screenshoot.png?raw=true" alt="Migrate DB"/>
-</p>
+<img src="https://preview.dragon-code.pro/TheDragonCode/migrate-db.svg?brand=laravel" width="100%" height="320" alt="Migrate DB"/>
 
 [![StyleCI Status][badge_styleci]][link_styleci]
 [![Github Workflow Status][badge_build]][link_build]
