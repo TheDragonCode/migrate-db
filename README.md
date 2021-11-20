@@ -67,17 +67,17 @@ Enjoy 😊
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/workflow/status/dragon-code/migrate-db/phpunit?style=flat-square
+[badge_build]:          https://img.shields.io/github/workflow/status/TheDragonCode/migrate-db/phpunit?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/migrate-db.svg?style=flat-square
 
 [badge_license]:        https://img.shields.io/packagist/l/dragon-code/migrate-db.svg?style=flat-square
 
-[badge_stable]:         https://img.shields.io/github/v/release/dragon-code/migrate-db?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/TheDragonCode/migrate-db?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
-[link_build]:           https://github.com/dragon-code/migrate-db/actions
+[link_build]:           https://github.com/TheDragonCode/migrate-db/actions
 
 [link_license]:         LICENSE
 
