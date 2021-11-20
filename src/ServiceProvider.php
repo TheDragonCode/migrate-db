@@ -1,11 +1,11 @@
 <?php
 
-namespace Helldar\MigrateDB;
+namespace DragonCode\MigrateDB;
 
-use Helldar\MigrateDB\Console\Migrate;
+use DragonCode\MigrateDB\Console\Migrate;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-final class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {

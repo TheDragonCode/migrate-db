@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Helldar\MigrateDB\ServiceProvider;
+use DragonCode\MigrateDB\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Connections;
 use Tests\Concerns\Database;

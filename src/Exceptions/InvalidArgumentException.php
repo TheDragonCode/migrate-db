@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\MigrateDB\Exceptions;
+namespace DragonCode\MigrateDB\Exceptions;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException as BaseException;
 
-final class InvalidArgumentException extends BaseException
+class InvalidArgumentException extends BaseException
 {
     public function __construct(string $driver)
     {

@@ -7,7 +7,7 @@ use Illuminate\Database\Connectors\MySqlConnector;
 use Illuminate\Database\Schema\Grammars\Grammar;
 use Illuminate\Database\Schema\Grammars\MySqlGrammar;
 
-final class MySqlConnection extends BaseConnection
+class MySqlConnection extends BaseConnection
 {
     protected function grammar(): Grammar
     {

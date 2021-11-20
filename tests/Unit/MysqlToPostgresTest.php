@@ -2,13 +2,13 @@
 
 namespace Tests\Unit;
 
-use Helldar\MigrateDB\Constants\Drivers;
-use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\MigrateDB\Constants\Drivers;
+use DragonCode\MigrateDB\Exceptions\InvalidArgumentException;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-final class MysqlToPostgresTest extends TestCase
+class MysqlToPostgresTest extends TestCase
 {
     public function testFillable()
     {

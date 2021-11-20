@@ -2,9 +2,9 @@
 
 namespace Tests\Configurations;
 
-use Helldar\MigrateDB\Constants\Drivers;
+use DragonCode\MigrateDB\Constants\Drivers;
 
-final class Postgres extends BaseConfiguration
+class Postgres extends BaseConfiguration
 {
     protected $config = [
         'driver'         => Drivers::POSTGRES,

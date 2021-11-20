@@ -2,9 +2,9 @@
 
 namespace Tests\Configurations;
 
-use Helldar\MigrateDB\Constants\Drivers;
+use DragonCode\MigrateDB\Constants\Drivers;
 
-final class MySQL extends BaseConfiguration
+class MySQL extends BaseConfiguration
 {
     protected $config = [
         'driver'         => Drivers::MYSQL,

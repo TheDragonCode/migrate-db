@@ -4,7 +4,7 @@ namespace Tests\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-final class TestServiceProvider extends ServiceProvider
+class TestServiceProvider extends ServiceProvider
 {
     public function boot()
     {

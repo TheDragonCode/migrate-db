@@ -1,17 +1,17 @@
 <?php
 
-namespace Helldar\MigrateDB\Console;
+namespace DragonCode\MigrateDB\Console;
 
-use Helldar\MigrateDB\Contracts\Database\Builder;
-use Helldar\MigrateDB\Exceptions\InvalidArgumentException;
-use Helldar\MigrateDB\Facades\BuilderManager;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\MigrateDB\Builder;
+use DragonCode\MigrateDB\Exceptions\InvalidArgumentException;
+use DragonCode\MigrateDB\Facades\BuilderManager;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-final class Migrate extends Command
+class Migrate extends Command
 {
     protected $signature = 'db:migrate'
     . ' {--schema-from= : Source connection name}'
@@ -19,10 +19,10 @@ final class Migrate extends Command
 
     protected $description = 'Data transfer from one database to another';
 
-    /** @var \Helldar\MigrateDB\Contracts\Database\Builder */
+    /** @var \DragonCode\Contracts\MigrateDB\Builder */
     protected $source;
 
-    /** @var \Helldar\MigrateDB\Contracts\Database\Builder */
+    /** @var \DragonCode\Contracts\MigrateDB\Builder */
     protected $target;
 
     public function handle()

@@ -9,11 +9,10 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "8.0" ]
-                support: [ "2.0", "3.0", "4.0" ]
-                psql: [ "9-alpine", "10-alpine", "11-alpine", "12-alpine", "13-alpine" ]
+                laravel: [ "7.0", "8.0" ]
+                psql: [ "9-alpine", "10-alpine", "11-alpine", "12-alpine", "13-alpine", "14-alpine" ]
 
-        name: php ${{ matrix.php }}, l ${{ matrix.laravel }}, s ${{ matrix.support }}, pg ${{ matrix.psql }}
+        name: php ${{ matrix.php }}, l ${{ matrix.laravel }}, pg ${{ matrix.psql }}
 
         services:
             mysql:
@@ -43,11 +42,10 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, pdo_mysql, pdo_pgsql
-                    tools: composer:v2
                     coverage: none
 
             -   name: Install dependencies
-                run: composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
+                run: composer require --dev laravel/framework:^${{ matrix.laravel }}
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
