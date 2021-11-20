@@ -10,7 +10,7 @@ jobs:
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
                 laravel: [ "8.0" ]
-                psql: [ "9-alpine", "10-alpine", "11-alpine", "12-alpine", "13-alpine", "14-alpine" ]
+                psql: [ "9", "10", "11", "12", "13", "14" ]
 
         name: php ${{ matrix.php }}, l ${{ matrix.laravel }}, pg ${{ matrix.psql }}
 
@@ -25,7 +25,7 @@ jobs:
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
             postgres:
-                image: postgres:${{ matrix.psql }}
+                image: postgres:${{ matrix.psql }}-alpine
                 ports:
                     - 5432:5432
                 env:
