@@ -2,10 +2,10 @@
 
 namespace Tests\Configurations;
 
-use Helldar\MigrateDB\Constants\Drivers;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\MigrateDB\Constants\Drivers;
+use DragonCode\Support\Concerns\Makeable;
 
-final class Manager
+class Manager
 {
     use Makeable;
 

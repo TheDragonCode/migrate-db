@@ -1,5 +1,5 @@
 {
-    "name": "andrey-helldar/migrate-db",
+    "name": "dragon-code/migrate-db",
     "description": "Easy data transfer from one database to another",
     "type": "library",
     "license": "MIT",
@@ -8,7 +8,10 @@
         "migrating",
         "migration",
         "move",
-        "transfer"
+        "transfer",
+        "dragon-code",
+        "dragon",
+        "andrey-helldar"
     ],
     "authors": [
         {
@@ -17,13 +20,14 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/migrate-db/issues",
-        "source": "https://github.com/andrey-helldar/migrate-db"
+        "issues": "https://github.com/TheDragonCode/migrate-db/issues",
+        "source": "https://github.com/TheDragonCode/migrate-db"
     },
     "require": {
         "php": "^7.3|^8.0",
         "ext-pdo": "*",
-        "andrey-helldar/support": "^2.15|^3.0|^4.0",
+        "dragon-code/contracts": "^2.8",
+        "dragon-code/support": "^5.0",
         "illuminate/contracts": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/support": "^8.0"
@@ -37,7 +41,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\MigrateDB\\": "src"
+            "DragonCode\\MigrateDB\\": "src"
         }
     },
     "autoload-dev": {
@@ -54,7 +58,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Helldar\\MigrateDB\\ServiceProvider"
+                "DragonCode\\MigrateDB\\ServiceProvider"
             ]
         }
     }

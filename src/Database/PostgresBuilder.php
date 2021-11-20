@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\MigrateDB\Database;
+namespace DragonCode\MigrateDB\Database;
 
-final class PostgresBuilder extends Builder
+class PostgresBuilder extends Builder
 {
     protected function tableNameColumn(): string
     {

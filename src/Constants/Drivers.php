@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\MigrateDB\Constants;
+namespace DragonCode\MigrateDB\Constants;
 
-final class Drivers
+class Drivers
 {
     public const MYSQL = 'mysql';
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\MigrateDB\Database;
+namespace DragonCode\MigrateDB\Database;
 
-use Helldar\MigrateDB\Constants\Drivers;
-use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
+use DragonCode\Contracts\MigrateDB\Builder as BuilderContract;
+use DragonCode\MigrateDB\Constants\Drivers;
 use Illuminate\Container\Container;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 
-final class Manager
+class Manager
 {
     protected $connection;
 
@@ -36,7 +36,7 @@ final class Manager
     }
 
     /**
-     * @return \Helldar\MigrateDB\Database\Builder|string
+     * @return \DragonCode\MigrateDB\Database\Builder|string
      */
     protected function getBuilder(): string
     {

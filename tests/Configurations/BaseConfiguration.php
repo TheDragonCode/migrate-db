@@ -2,7 +2,7 @@
 
 namespace Tests\Configurations;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 
 abstract class BaseConfiguration implements Arrayable

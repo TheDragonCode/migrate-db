@@ -2,7 +2,7 @@
 
 namespace Tests\Configurations;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -16,7 +16,7 @@ use InvalidArgumentException;
  * @method bool hasDatabase()
  * @method bool doesntDatabase()
  */
-final class Configuration implements Arrayable
+class Configuration implements Arrayable
 {
     use Makeable;
 

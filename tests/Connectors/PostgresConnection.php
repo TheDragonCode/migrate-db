@@ -7,7 +7,7 @@ use Illuminate\Database\Connectors\PostgresConnector;
 use Illuminate\Database\Schema\Grammars\Grammar;
 use Illuminate\Database\Schema\Grammars\PostgresGrammar;
 
-final class PostgresConnection extends BaseConnection
+class PostgresConnection extends BaseConnection
 {
     protected $default_database = 'postgres';
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\MigrateDB\Database;
+namespace DragonCode\MigrateDB\Database;
 
-use Helldar\MigrateDB\Contracts\Database\Builder as BuilderContract;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\MigrateDB\Builder as BuilderContract;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Support\Arr;

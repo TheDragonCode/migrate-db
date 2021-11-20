@@ -2,7 +2,7 @@
 
 namespace Tests\Connectors;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectorInterface;
 use Illuminate\Database\Schema\Grammars\Grammar;

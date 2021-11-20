@@ -1,25 +1,21 @@
 # Migrate DB
 
-Easy data transfer from one database to another
-
 <img src="https://preview.dragon-code.pro/TheDragonCode/migrate-db.svg?brand=laravel" alt="Migrate DB"/>
-
-[![StyleCI Status][badge_styleci]][link_styleci]
-[![Github Workflow Status][badge_build]][link_build]
-[![Coverage Status][badge_coverage]][link_scrutinizer]
-[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
+[![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
+
+> Easy data transfer from one database to another
 
 ## Installation
 
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/migrate-db --dev
+$ composer require dragon-code/migrate-db --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -27,10 +23,16 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/migrate-db": "^1.1"
+        "dragon-code/migrate-db": "^2.0"
     }
 }
 ```
+
+### Upgrade from `andrey-helldar/migrate-db`
+
+1. In your `composer.json` file, replace `"andrey-helldar/migrate-db": "^1.0"` with `"dragon-code/migrate-db": "^2.0"`.
+2. Run the `command composer` update.
+3. Profit!
 
 ## Compatibility
 
@@ -43,7 +45,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ## Using
 
 Create a new database and set up both connections in the `connections` section of
-the [config/database.php](https://github.com/laravel/laravel/blob/8.x/config/database.php) file, then run the `db:migrate` console command passing two
+the [config/database.php](https://github.com/laravel/laravel/blob/master/config/database.php) file, then run the `db:migrate` console command passing two
 parameters:
 
 ```bash
@@ -65,36 +67,18 @@ Enjoy 😊
 This package is licensed under the [MIT License](LICENSE).
 
 
-## For Enterprise
+[badge_build]:          https://img.shields.io/github/workflow/status/dragon-code/migrate-db/phpunit?style=flat-square
 
-Available as part of the Tidelift Subscription.
+[badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/migrate-db.svg?style=flat-square
 
-The maintainers of `andrey-helldar/migrate-db` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-migrate-db?utm_source=packagist-andrey-helldar-migrate-db&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
+[badge_license]:        https://img.shields.io/packagist/l/dragon-code/migrate-db.svg?style=flat-square
 
-
-
-[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/migrate-db/phpunit?style=flat-square
-
-[badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/migrate-db.svg?style=flat-square
-
-[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/migrate-db.svg?style=flat-square
-
-[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/migrate-db.svg?style=flat-square
-
-[badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/migrate-db.svg?style=flat-square
-
-[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/migrate-db?label=stable&style=flat-square
-
-[badge_styleci]:        https://styleci.io/repos/338000763/shield
+[badge_stable]:         https://img.shields.io/github/v/release/dragon-code/migrate-db?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
-[link_build]:           https://github.com/andrey-helldar/migrate-db/actions
+[link_build]:           https://github.com/dragon-code/migrate-db/actions
 
 [link_license]:         LICENSE
 
-[link_packagist]:       https://packagist.org/packages/andrey-helldar/migrate-db
-
-[link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/migrate-db/?branch=main
-
-[link_styleci]:         https://github.styleci.io/repos/338000763
+[link_packagist]:       https://packagist.org/packages/dragon-code/migrate-db

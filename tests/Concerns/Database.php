@@ -2,7 +2,7 @@
 
 namespace Tests\Concerns;
 
-use Helldar\MigrateDB\Constants\Drivers;
+use DragonCode\MigrateDB\Constants\Drivers;
 use Illuminate\Support\Facades\Config;
 use Tests\Configurations\BaseConfiguration;
 use Tests\Configurations\Manager;

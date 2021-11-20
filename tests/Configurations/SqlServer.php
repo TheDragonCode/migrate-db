@@ -2,9 +2,9 @@
 
 namespace Tests\Configurations;
 
-use Helldar\MigrateDB\Constants\Drivers;
+use DragonCode\MigrateDB\Constants\Drivers;
 
-final class SqlServer extends BaseConfiguration
+class SqlServer extends BaseConfiguration
 {
     protected $config = [
         'driver'         => Drivers::SQL_SERVER,
