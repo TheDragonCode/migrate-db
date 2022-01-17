@@ -1,4 +1,4 @@
-name: phpunit
+name: "Laravel 9"
 on: [ push ]
 
 jobs:
@@ -8,11 +8,11 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "8.0" ]
+                php: [ "8.0", "8.1" ]
+                laravel: [ "9.0" ]
                 psql: [ "9", "10", "11", "12", "13", "14" ]
 
-        name: php ${{ matrix.php }}, l ${{ matrix.laravel }}, pg ${{ matrix.psql }}
+        name: php ${{ matrix.php }}, pg ${{ matrix.psql }}
 
         services:
             mysql:
