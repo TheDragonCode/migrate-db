@@ -10,12 +10,12 @@
 
 > Easy data transfer from one database to another
 
-## Installation
+### Installation
 
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require dragon-code/migrate-db --dev
+composer require dragon-code/migrate-db --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -48,8 +48,22 @@ Create a new database and set up both connections in the `connections` section o
 the [config/database.php](https://github.com/laravel/laravel/blob/master/config/database.php) file, then run the `db:migrate` console command passing two
 parameters:
 
+### Default Usage
+
 ```bash
-$ php artisan db:migrate --schema-from=foo --schema-to=bar
+php artisan db:migrate --schema-from=foo --schema-to=bar
+```
+
+### Only Specific Tables
+
+```bash
+php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1,table2,table3
+```
+
+### Exclude Specific Tables
+
+```bash
+php artisan db:migrate --schema-from=foo --schema-to=bar --exclude-tables=table1,table2,table3
 ```
 
 where:
@@ -57,7 +71,7 @@ where:
 * `foo` - Source [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
 * `bar` - Target [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
 
-The command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
+Follow on screen instructions and then command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
 
 Enjoy 😊
 
