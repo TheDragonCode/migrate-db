@@ -42,7 +42,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 | Laravel | ^8.0 |
 | Databases | MySQL 5.7+, PostgreSQL 9.5+, MSSQL |
 
-## Using
+## Usage
 
 Create a new database and set up both connections in the `connections` section of
 the [config/database.php](https://github.com/laravel/laravel/blob/master/config/database.php) file, then run the `db:migrate` console command passing two
@@ -55,13 +55,13 @@ php artisan db:migrate --schema-from=foo --schema-to=bar
 ### Only Specific Tables
 
 ```bash
-php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1,table2,table3
+php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1 --tables=table2 --tables=table3
 ```
 
 ### Exclude Specific Tables
 
 ```bash
-php artisan db:migrate --schema-from=foo --schema-to=bar --exclude-tables=table1,table2,table3
+php artisan db:migrate --schema-from=foo --schema-to=bar --exclude-tables=table1 --exclude-tables=table2 --exclude-tables=table3
 ```
 
 where:
