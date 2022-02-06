@@ -204,23 +204,17 @@ class Migrate extends Command
         $this->tableNames =   $this->tableNames();
         $this->excludeTables =   $this->excludeTables();
 
-        //$this->getTablesFromTarget = false;
         if ($this->tableNames[0] == '-' && $this->confirm('Get all table list from target connection(incase if source connection does not support it)?', false))
             $this->getTablesFromTarget = true;
 
-        //$this->truncateTables = false;
         if ($this->confirm('Please choose option whether to truncate target table before transfer?', false))
             $this->truncateTables = true;
 
-        //$this->dropTables =   false;
         if (($this->tableNames[0] == '-'
             && $this->excludeTables[0] == '-'
             && $this->truncateTables
             && $this->confirm('Please choose option whether to drop target tables before migration?', false)))
             $this->dropTables = true;
-
-            $this->info("truncate Tables: " . ($this->truncateTables ? 'True':'False'));
-            $this->info("drop Tables: " . ($this->dropTables ? 'True':'False'));
     }
 
     protected function builder(string $connection, string $table): QueryBuilder
