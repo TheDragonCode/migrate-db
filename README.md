@@ -42,7 +42,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 | Laravel | ^8.0 |
 | Databases | MySQL 5.7+, PostgreSQL 9.5+, MSSQL |
 
-## Using
+## Usage
 
 Create a new database and set up both connections in the `connections` section of
 the [config/database.php](https://github.com/laravel/laravel/blob/master/config/database.php) file, then run the `db:migrate` console command passing two
