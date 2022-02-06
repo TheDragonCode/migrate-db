@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
 
 class Migrate extends Command
@@ -17,8 +18,8 @@ class Migrate extends Command
     protected $signature = 'db:migrate'
         . ' {--schema-from= : Source connection name}'
         . ' {--schema-to= : Target connection name}'
-        . ' {--exclude-tables= : Comma separated table names to exclude}'
-        . ' {--tables= : Comma separated table names to migrate only}';
+        . ' {--exclude-tables=* : Comma separated table names to exclude}'
+        . ' {--tables=* : Comma separated table names to migrate only}';
 
     protected $description = 'Data transfer from one database to another';
 
@@ -44,9 +45,6 @@ class Migrate extends Command
     protected $truncate_tables;
 
     /** @var string */
-    protected static $saperator = ',';
-
-    /** @var string */
     protected static $target_connection = 'target';
 
     /** @var string */
@@ -57,6 +55,18 @@ class Migrate extends Command
 
     /** @var array */
     protected static $choices = ['target', 'both', 'none'];
+
+    /** @var array */
+    protected $migrated_tables = [];
+
+    /** @var array */
+    protected $table_not_exists = [];
+
+    /** @var array */
+    protected $excluded_tables = [];
+
+    /** @var string */
+    protected static $separator = ',';
 
     public function handle()
     {
@@ -69,6 +79,21 @@ class Migrate extends Command
         $this->disableForeign();
         $this->runTransfer();
         $this->enableForeign();
+
+        $this->info('');
+
+        $this->info('');
+        $this->info('Migrated Tables');
+        $this->info(implode(self::$separator, $this->migrated_tables));
+
+
+        $this->info('');
+        $this->info('Excluded Tables');
+        $this->info(implode(self::$separator, $this->excluded_tables));
+
+        $this->info('');
+        $this->info('Tables Does not Exists in source connection');
+        $this->info(implode(self::$separator, $this->table_not_exists));
     }
 
     protected function runTransfer(): void
@@ -78,11 +103,17 @@ class Migrate extends Command
         $this->withProgressBar($this->tables(), function (string $table) {
 
             if (in_array($table, $this->exclude_tables)) {
-                Log::info($table . ' excluded');
+                $this->excluded_tables[] = $table;
+                return;
+            }
+
+            if (!$this->hasTable($this->source(), $table)) {
+                $this->table_not_exists[] = $table;
                 return;
             }
 
             $this->migrateTable($table, $this->source->getPrimaryKey($table));
+            $this->migrated_tables[] = $table;
         });
     }
 
@@ -119,7 +150,7 @@ class Migrate extends Command
 
     protected function tables(): array
     {
-        if (!empty($this->table_names[0])) {
+        if (!empty($this->table_names)) {
             return $this->table_names;
         }
 
@@ -180,12 +211,12 @@ class Migrate extends Command
 
     protected function tableNames(): array
     {
-        return explode(self::$saperator, $this->option('tables') ?? '');
+        return $this->option('tables');
     }
 
     protected function excludeTables(): array
     {
-        return explode(self::$saperator, $this->option('exclude-tables') ?? '');
+        return $this->option('exclude-tables');
     }
 
     protected function getMigrationOption()
@@ -242,7 +273,7 @@ class Migrate extends Command
         $this->truncate_tables              = false;
         $this->drop_target_tables           = false;
 
-        if (empty($this->table_names[0]) && $this->resolveTableListOption()) {
+        if (empty($this->table_names) && $this->resolveTableListOption()) {
             $this->retrive_tables_from_target = true;
         }
 
@@ -250,7 +281,7 @@ class Migrate extends Command
             $this->truncate_tables = true;
         }
 
-        if ((empty($this->table_names[0]) && empty($this->exclude_tables[0]) && $this->truncate_tables && $this->resolveDropOption())) {
+        if ((empty($this->table_names) && empty($this->exclude_tables) && $this->truncate_tables && $this->resolveDropOption())) {
             $this->drop_target_tables = true;
         }
     }
@@ -258,6 +289,11 @@ class Migrate extends Command
     protected function builder(string $connection, string $table): QueryBuilder
     {
         return DB::connection($connection)->table($table);
+    }
+
+    protected function hasTable(string $connection, string $table): bool
+    {
+        return Schema::connection($connection)->hasTable($table);
     }
 
     protected function getPrimaryKeyType(string $connection, string $table, string $column): string
