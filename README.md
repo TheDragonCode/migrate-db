@@ -10,7 +10,7 @@
 
 > Easy data transfer from one database to another
 
-### Installation
+## Installation
 
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
@@ -47,8 +47,6 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 Create a new database and set up both connections in the `connections` section of
 the [config/database.php](https://github.com/laravel/laravel/blob/master/config/database.php) file, then run the `db:migrate` console command passing two
 parameters:
-
-### Default Usage
 
 ```bash
 php artisan db:migrate --schema-from=foo --schema-to=bar
