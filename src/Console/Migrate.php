@@ -100,7 +100,7 @@ class Migrate extends Command
                 return;
             }
 
-            if (!$this->hasTable($this->source(), $table)) {
+            if (! $this->hasTable($this->source(), $table)) {
                 $this->tables_not_exists[] = $table;
                 return;
             }
@@ -142,7 +142,7 @@ class Migrate extends Command
 
     protected function isSkippable(string $table, string $column): bool
     {
-        return !$this->truncate && $this->isNumericColumn($table, $column);
+        return $this->truncate === false && $this->isNumericColumn($table, $column);
     }
 
     /**  if primary key is not string then skipping existing records */
@@ -153,7 +153,7 @@ class Migrate extends Command
 
     protected function tables(): array
     {
-        if (!empty($this->tables)) {
+        if (! empty($this->tables)) {
             return $this->tables;
         }
 
@@ -164,7 +164,7 @@ class Migrate extends Command
 
     protected function cleanTargetDatabase(): void
     {
-        if (!$this->drop_target) {
+        if (! $this->drop_target) {
             return;
         }
 
@@ -177,7 +177,7 @@ class Migrate extends Command
     {
         $run_migration_on = $this->getMigrationOption();
 
-        if (!$this->isMigrationRequired($run_migration_on)) {
+        if (! $this->isMigrationRequired($run_migration_on)) {
             return;
         }
 
