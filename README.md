@@ -61,7 +61,7 @@ php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1 --table
 ### Exclude Specific Tables
 
 ```bash
-php artisan db:migrate --schema-from=foo --schema-to=bar --exclude-tables=table1 --exclude-tables=table2 --exclude-tables=table3
+php artisan db:migrate --schema-from=foo --schema-to=bar --exclude=table1 --exclude=table2 --exclude=table3
 ```
 
 where:
