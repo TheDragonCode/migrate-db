@@ -31,11 +31,11 @@ trait Database
 
     protected $choice_target = 'target';
 
-    protected $choice_both = 'both';
+    protected $choice_source = 'source';
 
     protected $choices = [
         'target',
-        'both',
+        'source',
         'none'
     ];
 

@@ -21,7 +21,7 @@ class PostgresToMysqlTest extends TestCase
         ])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
             ->run();
 
@@ -41,7 +41,7 @@ class PostgresToMysqlTest extends TestCase
         ])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
             ->run();
 
@@ -186,7 +186,7 @@ class PostgresToMysqlTest extends TestCase
         ])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
             ->run();
 
@@ -211,7 +211,7 @@ class PostgresToMysqlTest extends TestCase
         ])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
             ->run();
 
@@ -239,7 +239,7 @@ class PostgresToMysqlTest extends TestCase
         $this->artisan('db:migrate')
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
     }
 
@@ -251,7 +251,7 @@ class PostgresToMysqlTest extends TestCase
         $this->artisan('db:migrate', ['--schema-to' => $this->target_connection])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
     }
 
@@ -263,7 +263,7 @@ class PostgresToMysqlTest extends TestCase
         $this->artisan('db:migrate', ['--schema-from' => $this->source_connection])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
     }
 
@@ -275,7 +275,7 @@ class PostgresToMysqlTest extends TestCase
         $this->artisan('db:migrate', ['--schema-from' => 'qwerty', '--schema-to' => $this->target_connection])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
     }
 
@@ -287,7 +287,7 @@ class PostgresToMysqlTest extends TestCase
         $this->artisan('db:migrate', ['--schema-from' => $this->source_connection, '--schema-to' => 'qwerty'])
             ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
-            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_both, $this->choices)
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
     }
 

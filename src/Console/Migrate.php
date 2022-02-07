@@ -48,13 +48,13 @@ class Migrate extends Command
     protected $target_connection = 'target';
 
     /** @var string */
-    protected $both_connection = 'both';
+    protected $source_connection = 'source';
 
     /** @var string */
     protected $none = 'none';
 
     /** @var array */
-    protected $choices = ['target', 'both', 'none'];
+    protected $choices = ['target', 'source', 'none'];
 
     /** @var array */
     protected $migrated = [];
@@ -77,17 +77,23 @@ class Migrate extends Command
         $this->runTransfer();
         $this->enableForeign();
 
+       $this->showStatus();
+    }
+
+
+    protected function showStatus(): void
+    {
         $this->displayMessage('Migrated Tables', $this->migrated);
         $this->displayMessage('Excluded Tables', $this->excluded);
         $this->displayMessage('Tables does not exist in source connection', $this->tables_not_exists);
     }
-
-    protected function displayMessage($message, $context = []): void
+    protected function displayMessage(string $message, array $context = []): void
     {
         $this->info($message);
 
-        if (empty($context) === false)
+        if ($context){
             $this->info(implode(',', $context));
+        }
     }
 
     protected function runTransfer(): void
@@ -100,7 +106,7 @@ class Migrate extends Command
                 return;
             }
 
-            if ($this->hasTable($this->source(), $table) === false) {
+            if ($this->doesntHasTable($this->source(), $table)) {
                 $this->tables_not_exists[] = $table;
                 return;
             }
@@ -108,6 +114,7 @@ class Migrate extends Command
             $this->truncateTable($table);
             $this->migrateTable($table, $this->source->getPrimaryKey($table));
         });
+
         $this->displayMessage(PHP_EOL);
     }
 
@@ -129,6 +136,7 @@ class Migrate extends Command
                     $lastRecord = $this->builder($this->target(), $table)->max($column);
 
                     Log::info('last record: ' . $lastRecord);
+
                     return $query->where($column, '>', $lastRecord);
                 }
             )
@@ -144,18 +152,22 @@ class Migrate extends Command
 
     protected function isSkippable(string $table, string $column): bool
     {
-        return $this->truncate === false && $this->isNumericColumn($table, $column);
+        return ! $this->truncate && $this->isNumericColumn($table, $column);
     }
 
-    /**  if primary key is not string then skipping existing records */
-    protected function isNumericColumn($table, $column): bool
+    /**
+     * if primary key is not string then skipping existing records
+     * @var string $table - Name of the table
+     * @var string $column - Name of the column
+     * */
+    protected function isNumericColumn(string $table, string $column): bool
     {
         return $this->getPrimaryKeyType($this->source(), $table, $column) !== 'string';
     }
 
     protected function tables(): array
     {
-        if (empty($this->tables) === false) {
+        if ($this->tables) {
             return $this->tables;
         }
 
@@ -166,7 +178,7 @@ class Migrate extends Command
 
     protected function cleanTargetDatabase(): void
     {
-        if ($this->drop_target === false) {
+        if (! $this->drop_target) {
             return;
         }
 
@@ -179,7 +191,7 @@ class Migrate extends Command
     {
         $run_migration_on = $this->getMigrationOption();
 
-        if ($this->isMigrationRequired($run_migration_on) === false) {
+        if ($this->isMigrationNotRequired($run_migration_on)) {
             return;
         }
 
@@ -189,27 +201,27 @@ class Migrate extends Command
             $this->migrate($this->source());
         }
 
-        if ($this->shouldRunOnTarget($run_migration_on)) {
+        if ($this->drop_target || $this->shouldRunOnSource($run_migration_on) || $this->shouldRunOnTarget($run_migration_on)) {
             $this->migrate($this->target());
         }
     }
 
-    protected function isMigrationRequired($run_migration_on): bool
+    protected function isMigrationNotRequired(string $run_migration_on): bool
     {
         return $run_migration_on === $this->none;
     }
 
-    protected function shouldRunOnTarget($run_migration_on): bool
+    protected function shouldRunOnTarget(string $run_migration_on): bool
     {
-        return $this->drop_target === true || in_array($run_migration_on, [$this->target_connection, $this->both_connection]);
+        return $run_migration_on === $this->target_connection;
     }
 
-    protected function shouldRunOnSource($run_migration_on): bool
+    protected function shouldRunOnSource(string $run_migration_on): bool
     {
-        return $run_migration_on === $this->both_connection;
+        return $run_migration_on === $this->source_connection;
     }
 
-    protected function migrate($connection): void
+    protected function migrate(string $connection): void
     {
         $this->call('migrate', ['--database' => $connection]);
     }
@@ -292,8 +304,8 @@ class Migrate extends Command
 
     protected function resolveOptions(): void
     {
-        $this->tables                       = $this->getTablesOption();
-        $this->excludes                     = $this->getExcludeOption();
+        $this->tables   = $this->getTablesOption();
+        $this->excludes = $this->getExcludeOption();
 
         if (empty($this->tables) && $this->confirmTableListOption()) {
             $this->retrive_tables_from_target = true;
@@ -313,9 +325,9 @@ class Migrate extends Command
         return DB::connection($connection)->table($table);
     }
 
-    protected function hasTable(string $connection, string $table): bool
+    protected function doesntHasTable(string $connection, string $table): bool
     {
-        return Schema::connection($connection)->hasTable($table);
+        return ! Schema::connection($connection)->hasTable($table);
     }
 
     protected function getPrimaryKeyType(string $connection, string $table, string $column): string
