@@ -303,7 +303,7 @@ class Migrate extends Command
             $this->truncate = true;
         }
 
-        if ((empty($this->tables) && empty($this->excludes) && $this->truncate && $this->confirmDropOption())) {
+        if (empty($this->tables) && empty($this->excludes) && $this->truncate && $this->confirmDropOption()) {
             $this->drop_target = true;
         }
     }
