@@ -126,7 +126,9 @@ class Migrate extends Command
             ->when(
                 $this->isSkippable($table, $column),
                 function ($query) use ($table, $column) {
-                    Log::info('last record: ' . ($lastRecord = $this->builder($this->target(), $table)->max($column) ?? 0));
+                    $lastRecord = $this->builder($this->target(), $table)->max($column);
+
+                    Log::info('last record: ' . $lastRecord);
                     return $query->where($column, '>', $lastRecord);
                 }
             )
