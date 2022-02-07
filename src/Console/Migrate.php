@@ -45,16 +45,16 @@ class Migrate extends Command
     protected $truncate = false;
 
     /** @var string */
-    protected  $target_connection = 'target';
+    protected $target_connection = 'target';
 
     /** @var string */
-    protected  $both_connection = 'both';
+    protected $both_connection = 'both';
 
     /** @var string */
-    protected  $none = 'none';
+    protected $none = 'none';
 
     /** @var array */
-    protected  $choices = ['target', 'both', 'none'];
+    protected $choices = ['target', 'both', 'none'];
 
     /** @var array */
     protected $migrated = [];
@@ -64,9 +64,6 @@ class Migrate extends Command
 
     /** @var array */
     protected $excluded = [];
-
-    /** @var string */
-    protected  $separator = ',';
 
     public function handle()
     {
@@ -80,14 +77,17 @@ class Migrate extends Command
         $this->runTransfer();
         $this->enableForeign();
 
-        $this->displayMessage('Migrated Tables                            : ' . implode($this->separator, $this->migrated));
-        $this->displayMessage('Excluded Tables                            : ' . implode($this->separator, $this->excluded));
-        $this->displayMessage('Tables does not exist in source connection : ' . implode($this->separator, $this->tables_not_exists));
+        $this->displayMessage('Migrated Tables', $this->migrated);
+        $this->displayMessage('Excluded Tables', $this->excluded);
+        $this->displayMessage('Tables does not exist in source connection', $this->tables_not_exists);
     }
 
-    protected function displayMessage($message): void
+    protected function displayMessage($message, $context = []): void
     {
         $this->info($message);
+
+        if (empty($context) === false)
+            $this->info(implode(',', $context));
     }
 
     protected function runTransfer(): void
@@ -100,7 +100,7 @@ class Migrate extends Command
                 return;
             }
 
-            if (! $this->hasTable($this->source(), $table)) {
+            if ($this->hasTable($this->source(), $table) === false) {
                 $this->tables_not_exists[] = $table;
                 return;
             }
@@ -155,7 +155,7 @@ class Migrate extends Command
 
     protected function tables(): array
     {
-        if (! empty($this->tables)) {
+        if (empty($this->tables) === false) {
             return $this->tables;
         }
 
@@ -166,7 +166,7 @@ class Migrate extends Command
 
     protected function cleanTargetDatabase(): void
     {
-        if (! $this->drop_target) {
+        if ($this->drop_target === false) {
             return;
         }
 
@@ -179,7 +179,7 @@ class Migrate extends Command
     {
         $run_migration_on = $this->getMigrationOption();
 
-        if (! $this->isMigrationRequired($run_migration_on)) {
+        if ($this->isMigrationRequired($run_migration_on) === false) {
             return;
         }
 

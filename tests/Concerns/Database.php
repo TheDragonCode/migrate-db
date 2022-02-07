@@ -27,6 +27,18 @@ trait Database
 
     protected $table_baz = 'baz';
 
+    protected $choice_none = 'none';
+
+    protected $choice_target = 'target';
+
+    protected $choice_both = 'both';
+
+    protected $choices = [
+        'target',
+        'both',
+        'none'
+    ];
+
     protected function setDatabases($app): void
     {
         $this->setDatabaseConnections($app);
