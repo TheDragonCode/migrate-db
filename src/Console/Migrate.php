@@ -167,7 +167,7 @@ class Migrate extends Command
             return $this->tables;
         }
 
-        return  $this->retrive_tables_from_target
+        return  $this->retrieve_tables_from_target
             ? $this->target->getAllTables()
             : $this->source->getAllTables();
     }
