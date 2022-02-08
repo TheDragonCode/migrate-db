@@ -36,7 +36,7 @@ class Migrate extends Command
     protected $excludes;
 
     /** @var bool */
-    protected $retrive_tables_from_target = false;
+    protected $retrieve_tables_from_target = false;
 
     /** @var bool */
     protected $drop_target = false;
