@@ -304,7 +304,7 @@ class Migrate extends Command
         $this->excludes = $this->getExcludeOption();
 
         if (empty($this->tables) && $this->confirmTableListOption()) {
-            $this->retrive_tables_from_target = true;
+            $this->retrieve_tables_from_target = true;
         }
 
         if ($this->confirmTruncateTableOption()) {
