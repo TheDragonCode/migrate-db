@@ -87,6 +87,7 @@ class Migrate extends Command
         $this->displayMessage('Excluded Tables', $this->excluded);
         $this->displayMessage('Tables does not exist in source connection', $this->tables_not_exists);
     }
+    
     protected function displayMessage(string $message, array $context = []): void
     {
         $this->info($message);
@@ -155,11 +156,6 @@ class Migrate extends Command
         return ! $this->truncate && $this->isNumericColumn($table, $column);
     }
 
-    /**
-     * if primary key is not string then skipping existing records
-     * @var string $table - Name of the table
-     * @var string $column - Name of the column
-     * */
     protected function isNumericColumn(string $table, string $column): bool
     {
         return $this->getPrimaryKeyType($this->source(), $table, $column) !== 'string';
@@ -189,36 +185,36 @@ class Migrate extends Command
 
     protected function runMigrations(): void
     {
-        $run_migration_on = $this->getMigrationOption();
+        $on = $this->getMigrationOption();
 
-        if ($this->isMigrationNotRequired($run_migration_on)) {
+        if ($this->isMigrationNotRequired($on)) {
             return;
         }
 
         $this->displayMessage('Run migrations on the databases...');
 
-        if ($this->shouldRunOnSource($run_migration_on)) {
+        if ($this->shouldRunOnSource($on)) {
             $this->migrate($this->source());
         }
 
-        if ($this->drop_target || $this->shouldRunOnSource($run_migration_on) || $this->shouldRunOnTarget($run_migration_on)) {
+        if ($this->drop_target || $this->shouldRunOnSource($on) || $this->shouldRunOnTarget($on)) {
             $this->migrate($this->target());
         }
     }
 
-    protected function isMigrationNotRequired(string $run_migration_on): bool
+    protected function isMigrationNotRequired(string $on): bool
     {
-        return $run_migration_on === $this->none;
+        return $on === $this->none;
     }
 
-    protected function shouldRunOnTarget(string $run_migration_on): bool
+    protected function shouldRunOnTarget(string $on): bool
     {
-        return $run_migration_on === $this->target_connection;
+        return $on === $this->target_connection;
     }
 
-    protected function shouldRunOnSource(string $run_migration_on): bool
+    protected function shouldRunOnSource(string $on): bool
     {
-        return $run_migration_on === $this->source_connection;
+        return $on === $this->source_connection;
     }
 
     protected function migrate(string $connection): void
