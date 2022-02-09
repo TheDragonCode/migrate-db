@@ -25,7 +25,7 @@ abstract class BaseConfiguration implements Arrayable
         return $this;
     }
 
-    public function setDatabase(string $name = null): self
+    public function setDatabase(?string $name = null): self
     {
         $this->configuration->setDatabase($name);
 

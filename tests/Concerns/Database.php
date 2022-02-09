@@ -61,7 +61,7 @@ trait Database
     }
 
     /**
-     * @param  string  $connection
+     * @param string $connection
      *
      * @return string|\Tests\Connectors\BaseConnection
      */

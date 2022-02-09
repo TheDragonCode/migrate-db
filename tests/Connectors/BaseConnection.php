@@ -24,6 +24,10 @@ abstract class BaseConnection
 
     protected $grammar;
 
+    abstract protected function grammar(): Grammar;
+
+    abstract protected function connector(): ConnectorInterface;
+
     public function of(string $database, string $driver): self
     {
         $this->database = $database;
@@ -39,7 +43,7 @@ abstract class BaseConnection
         return $this;
     }
 
-    public function dropDatabase(string $name = null): self
+    public function dropDatabase(?string $name = null): self
     {
         $name = $this->database($name);
 
@@ -48,7 +52,7 @@ abstract class BaseConnection
         return $this;
     }
 
-    public function createDatabase(string $name = null): self
+    public function createDatabase(?string $name = null): self
     {
         $name = $this->database($name);
 
@@ -56,10 +60,6 @@ abstract class BaseConnection
 
         return $this;
     }
-
-    abstract protected function grammar(): Grammar;
-
-    abstract protected function connector(): ConnectorInterface;
 
     protected function query(string $query): void
     {
@@ -80,7 +80,7 @@ abstract class BaseConnection
         return $this->configuration->toArray();
     }
 
-    protected function database(string $name = null): string
+    protected function database(?string $name = null): string
     {
         return $name ?: $this->database;
     }
