@@ -67,7 +67,6 @@ class PostgresToMysqlTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo, $this->table_bar],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -91,7 +90,6 @@ class PostgresToMysqlTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -102,7 +100,6 @@ class PostgresToMysqlTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -121,7 +118,6 @@ class PostgresToMysqlTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -132,7 +128,6 @@ class PostgresToMysqlTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -165,7 +160,7 @@ class PostgresToMysqlTest extends TestCase
 
         $this->assertDatabaseCount($this->table_foo, 0, $this->target_connection);
         $this->assertDatabaseCount($this->table_bar, 0, $this->target_connection);
-        $this->assertDatabaseCount($this->table_baz, 1, $this->target_connection);
+        $this->assertDatabaseCount($this->table_baz, 3, $this->target_connection);
     }
 
     public function testData()
