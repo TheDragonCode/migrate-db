@@ -134,7 +134,7 @@ class MysqlToPostgresTest extends TestCase
             ->run();
 
         $this->assertDatabaseCount($this->table_foo, 3, $this->source_connection);
-        $this->assertDatabaseCount($this->table_foo, 6, $this->target_connection);
+        $this->assertDatabaseCount($this->table_foo, 3, $this->target_connection);
     }
 
     public function testExcludeTablesOption()
