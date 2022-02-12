@@ -89,7 +89,7 @@ class MysqlToPostgresTest extends TestCase
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
-            '--tables'      => $this->table_foo,
+            '--tables'      => [$this->table_foo],
         ])
             ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
@@ -100,7 +100,7 @@ class MysqlToPostgresTest extends TestCase
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
-            '--tables'      => $this->table_foo,
+            '--tables'      => [$this->table_foo],
         ])
             ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
@@ -119,7 +119,7 @@ class MysqlToPostgresTest extends TestCase
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
-            '--tables'      => $this->table_foo,
+            '--tables'      => [$this->table_foo],
         ])
             ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
@@ -130,7 +130,7 @@ class MysqlToPostgresTest extends TestCase
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
-            '--tables'      => $this->table_foo,
+            '--tables'      => [$this->table_foo],
         ])
             ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
