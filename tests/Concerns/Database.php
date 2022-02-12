@@ -27,8 +27,6 @@ trait Database
 
     protected $table_baz = 'baz';
 
-    protected $choice_none = 'none';
-
     protected $choice_target = 'target';
 
     protected $choice_source = 'source';
