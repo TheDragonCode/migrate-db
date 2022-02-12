@@ -19,7 +19,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
@@ -39,7 +39,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
@@ -65,7 +65,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => [$this->table_foo, $this->table_bar],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -89,7 +89,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => $this->table_foo,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -100,7 +100,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => $this->table_foo,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -119,7 +119,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => $this->table_foo,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -130,7 +130,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--tables'      => $this->table_foo,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -151,7 +151,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-to'   => $this->target_connection,
             '--exclude'      => [$this->table_foo, $this->table_bar],
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'no')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_target, $this->choices)
             ->assertExitCode(0)
@@ -184,7 +184,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
@@ -209,7 +209,7 @@ class MysqlToPostgresTest extends TestCase
             '--schema-from' => $this->source_connection,
             '--schema-to'   => $this->target_connection,
         ])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->assertExitCode(0)
@@ -237,7 +237,7 @@ class MysqlToPostgresTest extends TestCase
         $this->expectExceptionMessage('The "schema-from" option does not exist.');
 
         $this->artisan('db:migrate')
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
@@ -249,7 +249,7 @@ class MysqlToPostgresTest extends TestCase
         $this->expectExceptionMessage('The "schema-from" option does not exist.');
 
         $this->artisan('db:migrate', ['--schema-to' => $this->target_connection])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
@@ -261,7 +261,7 @@ class MysqlToPostgresTest extends TestCase
         $this->expectExceptionMessage('The "schema-to" option does not exist.');
 
         $this->artisan('db:migrate', ['--schema-from' => $this->source_connection])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
@@ -273,7 +273,7 @@ class MysqlToPostgresTest extends TestCase
         $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
         $this->artisan('db:migrate', ['--schema-from' => 'qwerty', '--schema-to' => $this->target_connection])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();
@@ -285,7 +285,7 @@ class MysqlToPostgresTest extends TestCase
         $this->expectExceptionMessage('Unsupported driver [qwerty].');
 
         $this->artisan('db:migrate', ['--schema-from' => $this->source_connection, '--schema-to' => 'qwerty'])
-            ->expectsConfirmation('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
             ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
             ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
             ->run();

@@ -77,7 +77,7 @@ class Migrate extends Command
         $this->runTransfer();
         $this->enableForeign();
 
-       $this->showStatus();
+        $this->showStatus();
     }
 
 
@@ -87,12 +87,11 @@ class Migrate extends Command
         $this->displayMessage('Excluded Tables', $this->excluded);
         $this->displayMessage('Tables does not exist in source connection', $this->tables_not_exists);
     }
-    
     protected function displayMessage(string $message, array $context = []): void
     {
         $this->info($message);
 
-        if ($context){
+        if ($context) {
             $this->info(implode(',', $context));
         }
     }
@@ -153,7 +152,7 @@ class Migrate extends Command
 
     protected function isSkippable(string $table, string $column): bool
     {
-        return ! $this->truncate && $this->isNumericColumn($table, $column);
+        return (! $this->truncate) && $this->isNumericColumn($table, $column);
     }
 
     protected function isNumericColumn(string $table, string $column): bool
@@ -259,7 +258,7 @@ class Migrate extends Command
 
     protected function confirmTableListOption(): bool
     {
-        return $this->confirm('Please confirm table list should be retrived from target connection? (incase if source connection does not support it)', false);
+        return $this->confirm('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', false);
     }
 
     protected function confirmTruncateTableOption(): bool
