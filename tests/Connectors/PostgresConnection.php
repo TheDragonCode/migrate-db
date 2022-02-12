@@ -11,7 +11,7 @@ class PostgresConnection extends BaseConnection
 {
     protected $default_database = 'postgres';
 
-    public function dropDatabase(string $name = null): BaseConnection
+    public function dropDatabase(?string $name = null): BaseConnection
     {
         $name = $this->database($name);
 

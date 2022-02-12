@@ -23,7 +23,7 @@ class Manager
     }
 
     /**
-     * @param  string|\Tests\Configurations\BaseConfiguration  $instance
+     * @param string|\Tests\Configurations\BaseConfiguration $instance
      *
      * @return \Tests\Configurations\BaseConfiguration
      */

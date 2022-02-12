@@ -16,6 +16,8 @@ abstract class Builder implements BuilderContract
     /** @var \Illuminate\Database\Connection */
     protected $connection;
 
+    abstract protected function tableNameColumn(): string;
+
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -59,8 +61,6 @@ abstract class Builder implements BuilderContract
 
         return Arr::first($columns);
     }
-
-    abstract protected function tableNameColumn(): string;
 
     protected function columns(string $table): array
     {
