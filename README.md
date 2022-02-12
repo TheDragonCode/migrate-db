@@ -15,7 +15,7 @@
 To get the latest version of `Migrate DB`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require dragon-code/migrate-db --dev
+composer require dragon-code/migrate-db --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -49,7 +49,19 @@ the [config/database.php](https://github.com/laravel/laravel/blob/master/config/
 parameters:
 
 ```bash
-$ php artisan db:migrate --schema-from=foo --schema-to=bar
+php artisan db:migrate --schema-from=foo --schema-to=bar
+```
+
+### Only Specific Tables
+
+```bash
+php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1 --tables=table2 --tables=table3
+```
+
+### Exclude Specific Tables
+
+```bash
+php artisan db:migrate --schema-from=foo --schema-to=bar --exclude=table1 --exclude=table2 --exclude=table3
 ```
 
 where:
@@ -57,7 +69,7 @@ where:
 * `foo` - Source [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
 * `bar` - Target [connection](https://github.com/laravel/laravel/blob/master/config/database.php) name
 
-The command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
+Follow on screen instructions and then command will perform all migrations on the source and destination databases and transfer all records from the old to the new one.
 
 Enjoy 😊
 
