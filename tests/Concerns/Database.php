@@ -34,7 +34,7 @@ trait Database
     protected $choices = [
         'target',
         'source',
-        'none'
+        'none',
     ];
 
     protected function setDatabases($app): void

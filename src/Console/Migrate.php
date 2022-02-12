@@ -10,8 +10,8 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class Migrate extends Command
 {
@@ -80,13 +80,13 @@ class Migrate extends Command
         $this->showStatus();
     }
 
-
     protected function showStatus(): void
     {
         $this->displayMessage('Migrated Tables', $this->migrated);
         $this->displayMessage('Excluded Tables', $this->excluded);
         $this->displayMessage('Tables does not exist in source connection', $this->tables_not_exists);
     }
+
     protected function displayMessage(string $message, array $context = []): void
     {
         $this->info($message);
@@ -103,11 +103,13 @@ class Migrate extends Command
         $this->withProgressBar($this->tables(), function (string $table) {
             if (in_array($table, $this->excludes)) {
                 $this->excluded[] = $table;
+
                 return;
             }
 
             if ($this->doesntHasTable($this->source(), $table)) {
                 $this->tables_not_exists[] = $table;
+
                 return;
             }
 
@@ -152,7 +154,7 @@ class Migrate extends Command
 
     protected function isSkippable(string $table, string $column): bool
     {
-        return (! $this->truncate) && $this->isNumericColumn($table, $column);
+        return ! $this->truncate && $this->isNumericColumn($table, $column);
     }
 
     protected function isNumericColumn(string $table, string $column): bool
@@ -166,7 +168,7 @@ class Migrate extends Command
             return $this->tables;
         }
 
-        return  $this->retrieve_tables_from_target
+        return $this->retrieve_tables_from_target
             ? $this->target->getAllTables()
             : $this->source->getAllTables();
     }

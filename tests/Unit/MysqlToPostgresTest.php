@@ -147,8 +147,8 @@ class MysqlToPostgresTest extends TestCase
         $this->assertDatabaseCount($this->table_baz, 3, $this->source_connection);
 
         $this->artisan('db:migrate', [
-            '--schema-from' => $this->source_connection,
-            '--schema-to'   => $this->target_connection,
+            '--schema-from'  => $this->source_connection,
+            '--schema-to'    => $this->target_connection,
             '--exclude'      => [$this->table_foo, $this->table_bar],
         ])
             ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
