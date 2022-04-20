@@ -24,11 +24,11 @@
         "source": "https://github.com/TheDragonCode/migrate-db"
     },
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^8.0",
         "ext-pdo": "*",
-        "doctrine/dbal": "^2.6 || ^3.0",
+        "doctrine/dbal": "^3.0",
         "dragon-code/contracts": "^2.15",
-        "dragon-code/support": "^5.6",
+        "dragon-code/support": "^6.0",
         "illuminate/contracts": "^8.0 || ^9.0",
         "illuminate/database": "^8.0 || ^9.0",
         "illuminate/support": "^8.0 || ^9.0"
@@ -38,7 +38,7 @@
         "ext-pdo_pgsql": "*",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^6.0 || ^7.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.5"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,

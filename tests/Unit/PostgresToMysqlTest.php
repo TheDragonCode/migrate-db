@@ -274,7 +274,7 @@ class PostgresToMysqlTest extends TestCase
     {
         $items = DB::connection($connection)->table($table)->get();
 
-        return Arr::toArray($items);
+        return Arr::resolve($items);
     }
 
     protected function defaultSourceConnectionName(): string

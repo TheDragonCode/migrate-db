@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Schema;
 class Migrate extends Command
 {
     protected $signature = 'db:migrate'
-        . ' {--schema-from= : Source connection name}'
-        . ' {--schema-to= : Target connection name}'
-        . ' {--exclude=* : Comma separated table names to exclude}'
-        . ' {--tables=* : Comma separated table names to migrate only}';
+                           . ' {--schema-from= : Source connection name}'
+                           . ' {--schema-to= : Target connection name}'
+                           . ' {--exclude=* : Comma separated table names to exclude}'
+                           . ' {--tables=* : Comma separated table names to migrate only}';
 
     protected $description = 'Data transfer from one database to another';
 
@@ -144,7 +144,7 @@ class Migrate extends Command
             )
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
-                $items = Arr::toArray($items);
+                $items = Arr::resolve($items);
 
                 $this->builder($this->target(), $table)->insert($items);
             });
@@ -301,7 +301,7 @@ class Migrate extends Command
 
     protected function resolveOptions(): void
     {
-        $this->tables   = $this->getTablesOption();
+        $this->tables = $this->getTablesOption();
         $this->excludes = $this->getExcludeOption();
 
         if (empty($this->tables) && $this->confirmTableListOption()) {
