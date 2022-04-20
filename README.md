@@ -23,23 +23,17 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "dragon-code/migrate-db": "^2.0"
+        "dragon-code/migrate-db": "^3.0"
     }
 }
 ```
-
-### Upgrade from `andrey-helldar/migrate-db`
-
-1. In your `composer.json` file, replace `"andrey-helldar/migrate-db": "^1.0"` with `"dragon-code/migrate-db": "^2.0"`.
-2. Run the `command composer` update.
-3. Profit!
 
 ## Compatibility
 
 | Service | Versions |
 |:---|:---|
-| PHP | ^7.3, ^8.0 |
-| Laravel | ^8.0 |
+| PHP | ^8.0 |
+| Laravel | ^8.0, ^9.0 |
 | Databases | MySQL 5.7+, PostgreSQL 9.5+, MSSQL |
 
 ## Usage
