@@ -301,7 +301,7 @@ class Migrate extends Command
 
     protected function resolveOptions(): void
     {
-        $this->tables = $this->getTablesOption();
+        $this->tables   = $this->getTablesOption();
         $this->excludes = $this->getExcludeOption();
 
         if (empty($this->tables) && $this->confirmTableListOption()) {
