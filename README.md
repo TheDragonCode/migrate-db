@@ -30,10 +30,10 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 
 ## Compatibility
 
-| Service | Versions |
-|:---|:---|
-| PHP | ^8.0 |
-| Laravel | ^8.0, ^9.0 |
+| Service   | Versions                           |
+|:----------|:-----------------------------------|
+| PHP       | ^8.0                               |
+| Laravel   | ^8.0, ^9.0, ^10.0                  |
 | Databases | MySQL 5.7+, PostgreSQL 9.5+, MSSQL |
 
 ## Usage
