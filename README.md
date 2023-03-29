@@ -1,6 +1,6 @@
 # Migrate DB
 
-<img src="https://preview.dragon-code.pro/TheDragonCode/migrate-db.svg?brand=laravel" alt="Migrate DB"/>
+<img src="https://preview.dragon-code.pro/the-dragon-code/migrate-db.svg?brand=laravel" alt="Migrate DB"/>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
