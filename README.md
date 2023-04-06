@@ -1,4 +1,4 @@
-# Migrate DB
+# Migrate DB for Laravel
 
 <img src="https://preview.dragon-code.pro/the-dragon-code/migrate-db.svg?brand=laravel" alt="Migrate DB"/>
 
