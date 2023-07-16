@@ -29,10 +29,8 @@ class Configuration implements Arrayable
         switch (true) {
             case Str::startsWith($name, 'set'):
                 return $this->set($key, $value);
-
             case Str::startsWith($name, 'has'):
                 return $this->has($key);
-
             case Str::startsWith($name, 'doesnt'):
                 return ! $this->has($key);
 

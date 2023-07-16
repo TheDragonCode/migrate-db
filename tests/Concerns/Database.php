@@ -71,8 +71,6 @@ trait Database
     }
 
     /**
-     * @param string $connection
-     *
      * @return string|\Tests\Connectors\BaseConnection
      */
     protected function getDatabaseConnector(string $connection): string
