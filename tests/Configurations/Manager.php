@@ -24,8 +24,6 @@ class Manager
 
     /**
      * @param  string|\Tests\Configurations\BaseConfiguration  $instance
-     *
-     * @return \Tests\Configurations\BaseConfiguration
      */
     protected function resolve(string $instance): BaseConfiguration
     {
