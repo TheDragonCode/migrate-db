@@ -159,7 +159,9 @@ class Migrate extends Command
 
     protected function isNumericColumn(string $table, string $column): bool
     {
-        return $this->getPrimaryKeyType($this->source(), $table, $column) !== 'string';
+        $type = $this->getPrimaryKeyType($this->source(), $table, $column);
+        
+        return ! in_array($type, ['string', 'char'], true);
     }
 
     protected function tables(): array
