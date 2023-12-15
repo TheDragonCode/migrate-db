@@ -114,7 +114,7 @@ class Migrate extends Command
             }
 
             $this->truncateTable($table);
-            $this->migrateTable($table);
+            $this->migrateTable($table, $this->source->getPrimaryKey($table));
         });
 
         $this->displayMessage(PHP_EOL);
@@ -127,15 +127,17 @@ class Migrate extends Command
         }
     }
 
-    protected function migrateTable(string $table): void
+    protected function migrateTable(string $table, string $column): void
     {
         Log::info('Transferring data from: ' . $table);
 
-        $this->builder($this->source(), $table)->chunk(1000, function (Collection $items) use ($table) {
-            $this->builder($this->target(), $table)->insert(
-                Arr::resolve($items)
-            );
-        });
+        $this->builder($this->source(), $table)
+            ->orderBy($column)
+            ->chunk(1000, function (Collection $items) use ($table) {
+                $items = Arr::resolve($items);
+
+                $this->builder($this->target(), $table)->insert($items);
+            });
 
         $this->migrated[] = $table;
     }
