@@ -11,7 +11,7 @@ class MySQL extends BaseConfiguration
         'url'            => null,
         'host'           => '127.0.0.1',
         'port'           => '3306',
-        'database'       => 'forge',
+        'database'       => 'default',
         'username'       => 'root',
         'password'       => 'root',
         'unix_socket'    => '',

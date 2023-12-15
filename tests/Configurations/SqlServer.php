@@ -11,7 +11,7 @@ class SqlServer extends BaseConfiguration
         'url'            => null,
         'host'           => '127.0.0.1',
         'port'           => '1433',
-        'database'       => 'forge',
+        'database'       => 'default',
         'username'       => 'sa',
         'password'       => '',
         'charset'        => 'utf8',
