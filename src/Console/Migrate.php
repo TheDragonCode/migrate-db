@@ -161,7 +161,7 @@ class Migrate extends Command
     {
         $type = $this->getPrimaryKeyType($this->source(), $table, $column);
 
-        return ! in_array($type, ['string', 'char'], true);
+        return ! in_array($type, ['string', 'char', 'ulid', 'uuid'], true);
     }
 
     protected function tables(): array
