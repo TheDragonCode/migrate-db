@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Schema;
 
 abstract class Migration extends BaseMigration
 {
+    use HasUuidAndUlid;
+
     protected $table;
 
     public function up()

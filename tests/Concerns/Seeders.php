@@ -2,7 +2,6 @@
 
 namespace Tests\Concerns;
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -14,11 +13,11 @@ trait Seeders
         $this->fillTable($this->table_bar);
         $this->fillTable($this->table_baz);
 
-        if (method_exists(Blueprint::class, 'ulid')) {
+        if ($this->hasUlid()) {
             $this->fillUlidTable($this->table_ulid);
         }
 
-        if (method_exists(Blueprint::class, 'uuid')) {
+        if ($this->hasUuid()) {
             $this->fillUlidTable($this->table_uuid);
         }
     }

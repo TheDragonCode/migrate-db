@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use DragonCode\MigrateDB\Constants\Drivers;
 use DragonCode\MigrateDB\Exceptions\InvalidArgumentException;
 use DragonCode\Support\Facades\Helpers\Arr;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
@@ -233,7 +232,7 @@ class MysqlToPostgresTest extends TestCase
 
     public function testUlidKeysAsPrimaryKey()
     {
-        if (! method_exists(Blueprint::class, 'ulid')) {
+        if (! $this->hasUlid()) {
             $this->assertTrue(true);
 
             return;
@@ -269,7 +268,7 @@ class MysqlToPostgresTest extends TestCase
 
     public function testUuidKeysAsPrimaryKey()
     {
-        if (! method_exists(Blueprint::class, 'uuid')) {
+        if (! $this->hasUuid()) {
             $this->assertTrue(true);
 
             return;

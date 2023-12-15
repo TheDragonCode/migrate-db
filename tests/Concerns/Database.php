@@ -13,6 +13,7 @@ use Tests\Connectors\SqlServerConnection;
 /** @mixin \Tests\Concerns\Connections */
 trait Database
 {
+    use HasUuidAndUlid;
     use Seeders;
 
     protected $connectors = [
