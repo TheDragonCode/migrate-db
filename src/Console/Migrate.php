@@ -131,7 +131,7 @@ class Migrate extends Command
     {
         Log::info('Transferring data from: ' . $table);
 
-        $this->builder($this->source(), $table)->chunkById(1000, function (Collection $items) use ($table) {
+        $this->builder($this->source(), $table)->chunk(1000, function (Collection $items) use ($table) {
             $this->builder($this->target(), $table)->insert(
                 Arr::resolve($items)
             );
