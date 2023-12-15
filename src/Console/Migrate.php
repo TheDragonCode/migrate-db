@@ -132,16 +132,6 @@ class Migrate extends Command
         Log::info('Transferring data from: ' . $table);
 
         $this->builder($this->source(), $table)
-            ->when(
-                $this->isSkippable($table, $column),
-                function ($query) use ($table, $column) {
-                    $lastRecord = $this->builder($this->target(), $table)->max($column) ?: 0;
-
-                    Log::info('last record: ' . $lastRecord);
-
-                    return $query->where($column, '>', $lastRecord);
-                }
-            )
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
                 $items = Arr::resolve($items);
@@ -159,7 +149,9 @@ class Migrate extends Command
 
     protected function isNumericColumn(string $table, string $column): bool
     {
-        return $this->getPrimaryKeyType($this->source(), $table, $column) !== 'string';
+        $type = $this->getPrimaryKeyType($this->source(), $table, $column);
+
+        return ! in_array($type, ['string', 'char', 'ulid', 'uuid'], true);
     }
 
     protected function tables(): array

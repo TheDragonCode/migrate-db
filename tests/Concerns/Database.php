@@ -13,6 +13,7 @@ use Tests\Connectors\SqlServerConnection;
 /** @mixin \Tests\Concerns\Connections */
 trait Database
 {
+    use HasUuidAndUlid;
     use Seeders;
 
     protected $connectors = [
@@ -26,6 +27,10 @@ trait Database
     protected $table_bar = 'bar';
 
     protected $table_baz = 'baz';
+
+    protected $table_ulid = 'ulid_table';
+
+    protected $table_uuid = 'uuid_table';
 
     protected $choice_target = 'target';
 
