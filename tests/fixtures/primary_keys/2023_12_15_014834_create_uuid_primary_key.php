@@ -11,7 +11,7 @@ class CreateUuidPrimaryKey extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('uuid')->primary();
 
             $table->string('value');
         });

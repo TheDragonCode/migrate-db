@@ -11,7 +11,7 @@ class CreateUlidPrimaryKey extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->ulid()->primary();
+            $table->ulid('ulid')->primary();
 
             $table->string('value');
         });
