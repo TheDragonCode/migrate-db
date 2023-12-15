@@ -231,28 +231,20 @@ class PostgresToPostgresTest extends TestCase
         );
     }
 
-    public function testUuidAndUlidKeysAsPrimaryKey()
+    public function testUlidKeysAsPrimaryKey()
     {
-        if (!method_exists(Blueprint::class, 'ulid')) {
+        if (! method_exists(Blueprint::class, 'ulid')) {
             $this->assertTrue(true);
 
             return;
         }
 
-        $this->fillUuidTable($this->uuid_key);
-        $this->fillUlidTable($this->ulid_key);
-
         $this->artisan('migrate', [
             '--realpath' => true,
-            '--path' => [
-                __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php',
-                __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php',
-            ]
+            '--path' => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php'
         ])->run();
 
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->source_connection);
+        $this->fillUlidTable($this->ulid_key);
 
         $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_1'], $this->source_connection);
         $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_2'], $this->source_connection);
@@ -269,13 +261,44 @@ class PostgresToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->target_connection);
-
         $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_1'], $this->target_connection);
         $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_2'], $this->target_connection);
         $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_3'], $this->target_connection);
+    }
+
+    public function testUuidKeysAsPrimaryKey()
+    {
+        if (! method_exists(Blueprint::class, 'uuid')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
+        $this->artisan('migrate', [
+            '--realpath' => true,
+            '--path' => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php'
+        ])->run();
+
+        $this->fillUuidTable($this->uuid_key);
+
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->source_connection);
+
+        $this->artisan('db:migrate', [
+            '--schema-from' => $this->source_connection,
+            '--schema-to'   => $this->target_connection,
+        ])
+            ->expectsConfirmation('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', 'no')
+            ->expectsConfirmation('Please confirm whether to truncate target table before transfer?', 'yes')
+            ->expectsConfirmation('Please choose whether to drop target tables before migration?', 'no')
+            ->expectsChoice('Please choose option to run migration on which connection?', $this->choice_source, $this->choices)
+            ->assertExitCode(0)
+            ->run();
+
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->target_connection);
     }
 
     public function testFailed()
