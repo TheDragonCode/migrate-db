@@ -240,6 +240,7 @@ class PostgresToPostgresTest extends TestCase
         }
 
         $this->artisan('migrate', [
+            '--database' => $this->source_connection,
             '--realpath' => true,
             '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php',
         ])->run();
@@ -275,6 +276,7 @@ class PostgresToPostgresTest extends TestCase
         }
 
         $this->artisan('migrate', [
+            '--database' => $this->source_connection,
             '--realpath' => true,
             '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php',
         ])->run();
