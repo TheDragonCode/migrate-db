@@ -18,7 +18,7 @@ trait Seeders
         }
 
         if ($this->hasUuid()) {
-            $this->fillUlidTable($this->table_uuid);
+            $this->fillUuidTable($this->table_uuid);
         }
     }
 
@@ -31,21 +31,21 @@ trait Seeders
         ]);
     }
 
-    protected function fillUuidTable(string $table): void
-    {
-        DB::connection($this->source_connection)->table($table)->insert([
-            ['value' => $table . '_1', 'uuid' => Str::uuid()->toString()],
-            ['value' => $table . '_2', 'uuid' => Str::uuid()->toString()],
-            ['value' => $table . '_3', 'uuid' => Str::uuid()->toString()],
-        ]);
-    }
-
     protected function fillUlidTable(string $table): void
     {
         DB::connection($this->source_connection)->table($table)->insert([
             ['value' => $table . '_1', 'ulid' => (string) Str::ulid()],
             ['value' => $table . '_2', 'ulid' => (string) Str::ulid()],
             ['value' => $table . '_3', 'ulid' => (string) Str::ulid()],
+        ]);
+    }
+
+    protected function fillUuidTable(string $table): void
+    {
+        DB::connection($this->source_connection)->table($table)->insert([
+            ['value' => $table . '_1', 'uuid' => Str::uuid()->toString()],
+            ['value' => $table . '_2', 'uuid' => Str::uuid()->toString()],
+            ['value' => $table . '_3', 'uuid' => Str::uuid()->toString()],
         ]);
     }
 }
