@@ -247,9 +247,9 @@ class MysqlToPostgresTest extends TestCase
 
         $this->fillUlidTable($this->ulid_key);
 
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_1'], $this->source_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_2'], $this->source_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_3'], $this->source_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_3'], $this->source_connection);
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
@@ -262,9 +262,9 @@ class MysqlToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_1'], $this->target_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_2'], $this->target_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => 'bar_3'], $this->target_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_3'], $this->target_connection);
     }
 
     public function testUuidKeysAsPrimaryKey()
@@ -283,9 +283,9 @@ class MysqlToPostgresTest extends TestCase
 
         $this->fillUuidTable($this->uuid_key);
 
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->source_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_3'], $this->source_connection);
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
@@ -298,9 +298,9 @@ class MysqlToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_1'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_2'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => 'foo_3'], $this->target_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_3'], $this->target_connection);
     }
 
     public function testFailed()
