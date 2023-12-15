@@ -241,7 +241,7 @@ class MysqlToMysqlTest extends TestCase
 
         $this->artisan('migrate', [
             '--realpath' => true,
-            '--path' => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php'
+            '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php',
         ])->run();
 
         $this->fillUlidTable($this->ulid_key);
@@ -276,7 +276,7 @@ class MysqlToMysqlTest extends TestCase
 
         $this->artisan('migrate', [
             '--realpath' => true,
-            '--path' => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php'
+            '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php',
         ])->run();
 
         $this->fillUuidTable($this->uuid_key);

@@ -12,7 +12,7 @@ class CreateUuidPrimaryKey extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->uuid()->primary();
-            
+
             $table->string('value');
         });
     }
