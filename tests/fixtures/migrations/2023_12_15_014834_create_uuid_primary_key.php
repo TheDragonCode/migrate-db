@@ -6,12 +6,14 @@ use Tests\Concerns\Migration;
 
 class CreateUuidPrimaryKey extends Migration
 {
-    protected $table = 'uuid_key';
+    protected $table = 'uuid_table';
 
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->uuid('uuid')->primary();
+            if (method_exists(Blueprint::class, 'uuid')) {
+                $table->uuid('uuid')->primary();
+            }
 
             $table->string('value');
         });

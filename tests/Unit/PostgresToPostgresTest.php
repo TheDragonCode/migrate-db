@@ -245,11 +245,11 @@ class PostgresToPostgresTest extends TestCase
             '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_ulid_primary_key.php',
         ])->run();
 
-        $this->fillUlidTable($this->ulid_key);
+        $this->fillUlidTable($this->table_ulid);
 
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_1'], $this->source_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_2'], $this->source_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_3'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_3'], $this->source_connection);
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
@@ -262,9 +262,9 @@ class PostgresToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_1'], $this->target_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_2'], $this->target_connection);
-        $this->assertDatabaseHas($this->ulid_key, ['value' => $this->ulid_key . '_3'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_ulid, ['value' => $this->table_ulid . '_3'], $this->target_connection);
     }
 
     public function testUuidKeysAsPrimaryKey()
@@ -275,17 +275,9 @@ class PostgresToPostgresTest extends TestCase
             return;
         }
 
-        $this->artisan('migrate', [
-            '--database' => $this->source_connection,
-            '--realpath' => true,
-            '--path'     => __DIR__ . '/../fixtures/primary_keys/2023_12_15_014834_create_uuid_primary_key.php',
-        ])->run();
-
-        $this->fillUuidTable($this->uuid_key);
-
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_1'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_2'], $this->source_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_3'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_1'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_2'], $this->source_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_3'], $this->source_connection);
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
@@ -298,9 +290,9 @@ class PostgresToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_1'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_2'], $this->target_connection);
-        $this->assertDatabaseHas($this->uuid_key, ['value' => $this->uuid_key . '_3'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_1'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_2'], $this->target_connection);
+        $this->assertDatabaseHas($this->table_uuid, ['value' => $this->table_uuid . '_3'], $this->target_connection);
     }
 
     public function testFailed()

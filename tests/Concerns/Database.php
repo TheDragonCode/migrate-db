@@ -27,9 +27,9 @@ trait Database
 
     protected $table_baz = 'baz';
 
-    protected $ulid_key = 'ulid_key';
+    protected $table_ulid = 'ulid_table';
 
-    protected $uuid_key = 'uuid_key';
+    protected $table_uuid = 'uuid_table';
 
     protected $choice_target = 'target';
 
