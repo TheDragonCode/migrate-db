@@ -13,7 +13,7 @@ abstract class BaseConnection
 {
     use Makeable;
 
-    /** @var \Tests\Configurations\BaseConfiguration */
+    /** @var BaseConfiguration */
     protected $configuration;
 
     protected $default_database;

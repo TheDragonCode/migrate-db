@@ -13,7 +13,7 @@ abstract class Builder implements BuilderContract
 {
     use Makeable;
 
-    /** @var \Illuminate\Database\Connection */
+    /** @var Connection */
     protected $connection;
 
     abstract protected function tableNameColumn(): string;

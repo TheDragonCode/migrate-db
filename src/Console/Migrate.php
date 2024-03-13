@@ -23,10 +23,10 @@ class Migrate extends Command
 
     protected $description = 'Data transfer from one database to another';
 
-    /** @var \DragonCode\Contracts\MigrateDB\Builder */
+    /** @var Builder */
     protected $source;
 
-    /** @var \DragonCode\Contracts\MigrateDB\Builder */
+    /** @var Builder */
     protected $target;
 
     /** @var array */
