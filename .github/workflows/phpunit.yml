@@ -58,7 +58,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, pdo_mysql, pdo_pgsql
-                    coverage: none
+                    coverage: xdebug
 
             -   name: Install dependencies
                 run: composer require --dev laravel/framework:^${{ matrix.laravel }}
