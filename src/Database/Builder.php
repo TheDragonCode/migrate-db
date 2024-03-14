@@ -33,7 +33,9 @@ abstract class Builder implements BuilderContract
 
     public function getAllTables(): array
     {
-        $tables = $this->schema()->getAllTables();
+        $tables = method_exists($this->schema(), 'getAllTables')
+            ? $this->schema()->getAllTables()
+            : $this->schema()->getTables();
 
         $key = $this->tableNameColumn();
 

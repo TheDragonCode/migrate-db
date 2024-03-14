@@ -12,8 +12,8 @@ class PostgresToPostgresTest extends TestCase
 {
     public function testFillable()
     {
-        $this->assertNotEmpty($this->sourceConnection()->getAllTables());
-        $this->assertEmpty($this->targetConnection()->getAllTables());
+        $this->assertNotEmpty($this->getTables($this->sourceConnection()));
+        $this->assertEmpty($this->getTables($this->targetConnection()));
 
         $this->artisan('db:migrate', [
             '--schema-from' => $this->source_connection,
@@ -26,8 +26,8 @@ class PostgresToPostgresTest extends TestCase
             ->assertExitCode(0)
             ->run();
 
-        $this->assertNotEmpty($this->sourceConnection()->getAllTables());
-        $this->assertNotEmpty($this->targetConnection()->getAllTables());
+        $this->assertNotEmpty($this->getTables($this->sourceConnection()));
+        $this->assertNotEmpty($this->getTables($this->targetConnection()));
     }
 
     public function testCount()

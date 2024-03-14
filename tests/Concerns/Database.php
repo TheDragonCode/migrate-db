@@ -3,6 +3,7 @@
 namespace Tests\Concerns;
 
 use DragonCode\MigrateDB\Constants\Drivers;
+use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Support\Facades\Config;
 use Tests\Configurations\BaseConfiguration;
 use Tests\Configurations\Manager;
@@ -16,27 +17,27 @@ trait Database
     use HasUuidAndUlid;
     use Seeders;
 
-    protected $connectors = [
+    protected array $connectors = [
         Drivers::MYSQL      => MySqlConnection::class,
         Drivers::POSTGRES   => PostgresConnection::class,
         Drivers::SQL_SERVER => SqlServerConnection::class,
     ];
 
-    protected $table_foo = 'foo';
+    protected string $table_foo = 'foo';
 
-    protected $table_bar = 'bar';
+    protected string $table_bar = 'bar';
 
-    protected $table_baz = 'baz';
+    protected string $table_baz = 'baz';
 
-    protected $table_ulid = 'ulid_table';
+    protected string $table_ulid = 'ulid_table';
 
-    protected $table_uuid = 'uuid_table';
+    protected string $table_uuid = 'uuid_table';
 
-    protected $choice_target = 'target';
+    protected string $choice_target = 'target';
 
-    protected $choice_source = 'source';
+    protected string $choice_source = 'source';
 
-    protected $choices = [
+    protected array $choices = [
         'target',
         'source',
         'none',
@@ -96,5 +97,12 @@ trait Database
     protected function runMigrations(): void
     {
         $this->artisan('migrate', ['--database' => $this->source_connection])->run();
+    }
+    
+    protected function getTables(SchemaBuilder $builder): array
+    {
+        return method_exists($builder, 'getAllTables')
+            ? $builder->getAllTables()
+            : $builder->getTables();
     }
 }
