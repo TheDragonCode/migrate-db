@@ -98,7 +98,7 @@ trait Database
     {
         $this->artisan('migrate', ['--database' => $this->source_connection])->run();
     }
-    
+
     protected function getTables(SchemaBuilder $builder): array
     {
         return method_exists($builder, 'getAllTables')
