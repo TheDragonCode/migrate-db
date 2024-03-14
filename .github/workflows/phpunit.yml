@@ -27,6 +27,15 @@ jobs:
                       
                     - laravel: "11.0"
                       php: "8.1"
+                      
+                    - laravel: "11.0"
+                      psql: "9"
+                      
+                    - laravel: "11.0"
+                      psql: "10"
+                      
+                    - laravel: "11.0"
+                      psql: "11"
 
         name: php ${{ matrix.php }}, lr ${{ matrix.laravel }}, pg ${{ matrix.psql }}
 
