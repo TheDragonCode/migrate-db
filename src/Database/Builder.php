@@ -13,7 +13,7 @@ abstract class Builder implements BuilderContract
 {
     use Makeable;
 
-    /** @var \Illuminate\Database\Connection */
+    /** @var Connection */
     protected $connection;
 
     abstract protected function tableNameColumn(): string;
@@ -33,7 +33,9 @@ abstract class Builder implements BuilderContract
 
     public function getAllTables(): array
     {
-        $tables = $this->schema()->getAllTables();
+        $tables = method_exists($this->schema(), 'getAllTables')
+            ? $this->schema()->getAllTables()
+            : $this->schema()->getTables();
 
         $key = $this->tableNameColumn();
 
@@ -69,15 +71,17 @@ abstract class Builder implements BuilderContract
 
     protected function filteredTables(array $tables, string $key): array
     {
-        return array_filter($tables, static function (stdClass $table) use ($key) {
-            return $table->{$key} !== 'migrations';
+        return array_filter($tables, static function (array|stdClass $table) use ($key) {
+            $name = is_array($table) ? $table['name'] : $table->{$key};
+
+            return $name !== 'migrations';
         });
     }
 
     protected function pluckTableNames(array $tables, string $key): array
     {
-        return array_map(static function ($table) use ($key) {
-            return $table->{$key};
+        return array_map(static function (array|stdClass $table) use ($key) {
+            return is_array($table) ? $table['name'] : $table->{$key};
         }, $tables);
     }
 
