@@ -17,7 +17,7 @@ jobs:
                 uses: actions/checkout@v4
 
             -   name: Checking PHP Syntax
-                uses: TheDragonCode/codestyler@v4
+                uses: TheDragonCode/codestyler@v5
     
     fix:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -29,7 +29,7 @@ jobs:
                 uses: actions/checkout@v4
 
             -   name: Checking PHP Syntax
-                uses: TheDragonCode/codestyler@v4
+                uses: TheDragonCode/codestyler@v5
                 with:
                     github_token: ${{ secrets.COMPOSER_TOKEN }}
                     fix: true
