@@ -4,7 +4,6 @@
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
-[![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
 > Easy data transfer from one database to another
@@ -79,8 +78,6 @@ Enjoy 😊
 
 This package is licensed under the [MIT License](LICENSE).
 
-
-[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/migrate-db/phpunit.yml?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/migrate-db.svg?style=flat-square
 
