@@ -7,6 +7,7 @@ use DragonCode\MigrateDB\Exceptions\InvalidArgumentException;
 use DragonCode\MigrateDB\Facades\BuilderManager;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\Command;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +17,10 @@ use Illuminate\Support\Facades\Schema;
 class Migrate extends Command
 {
     protected $signature = 'db:migrate'
-                           . ' {--schema-from= : Source connection name}'
-                           . ' {--schema-to= : Target connection name}'
-                           . ' {--exclude=* : Comma separated table names to exclude}'
-                           . ' {--tables=* : Comma separated table names to migrate only}';
+        . ' {--schema-from= : Source connection name}'
+        . ' {--schema-to= : Target connection name}'
+        . ' {--exclude=* : Comma separated table names to exclude}'
+        . ' {--tables=* : Comma separated table names to migrate only}';
 
     protected $description = 'Data transfer from one database to another';
 
@@ -252,7 +253,10 @@ class Migrate extends Command
 
     protected function confirmTableListOption(): bool
     {
-        return $this->confirm('Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)', false);
+        return $this->confirm(
+            'Please confirm table list should be retrieved from target connection? (incase if source connection does not support it)',
+            false
+        );
     }
 
     protected function confirmTruncateTableOption(): bool
@@ -311,7 +315,7 @@ class Migrate extends Command
 
     protected function builder(string $connection, string $table): QueryBuilder
     {
-        return DB::connection($connection)->table($table);
+        return $this->connection($connection)->table($table);
     }
 
     protected function doesntHasTable(string $connection, string $table): bool
@@ -321,6 +325,15 @@ class Migrate extends Command
 
     protected function getPrimaryKeyType(string $connection, string $table, string $column): string
     {
-        return DB::connection($connection)->getDoctrineColumn($table, $column)->getType()->getName();
+        if (method_exists($this->connection($connection), 'getDoctrineColumn')) {
+            return $this->connection($connection)->getDoctrineColumn($table, $column)->getType()->getName();
+        }
+
+        return $this->connection($connection)->getSchemaBuilder()->getColumnType($table, $column);
+    }
+
+    protected function connection(string $name): Connection
+    {
+        return DB::connection($name);
     }
 }

@@ -23,7 +23,7 @@ class Manager
     }
 
     /**
-     * @param  string|\Tests\Configurations\BaseConfiguration  $instance
+     * @param  string|BaseConfiguration  $instance
      */
     protected function resolve(string $instance): BaseConfiguration
     {

@@ -36,7 +36,7 @@ class Manager
     }
 
     /**
-     * @return \DragonCode\MigrateDB\Database\Builder|string
+     * @return Builder|string
      */
     protected function getBuilder(): string
     {
