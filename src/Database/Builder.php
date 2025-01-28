@@ -24,7 +24,7 @@ abstract class Builder implements BuilderContract
     }
 
     /**
-     * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
+     * @return SchemaBuilder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
      */
     public function schema(): SchemaBuilder
     {

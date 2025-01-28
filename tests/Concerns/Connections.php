@@ -18,7 +18,7 @@ trait Connections
     abstract protected function defaultTargetConnectionName(): string;
 
     /**
-     * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
+     * @return Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
      */
     protected function sourceConnection(): Builder
     {
@@ -26,7 +26,7 @@ trait Connections
     }
 
     /**
-     * @return \Illuminate\Database\Schema\Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
+     * @return Builder|\Illuminate\Database\Schema\MySqlBuilder|\Illuminate\Database\Schema\PostgresBuilder
      */
     protected function targetConnection(): Builder
     {
