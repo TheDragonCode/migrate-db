@@ -11,7 +11,9 @@ class SqlServerConnection extends BaseConnection
 {
     protected function grammar(): Grammar
     {
-        return new SqlServerGrammar();
+        return new SqlServerGrammar(
+            $this->databaseConnection()
+        );
     }
 
     protected function connector(): ConnectorInterface
