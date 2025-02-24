@@ -11,7 +11,9 @@ class MySqlConnection extends BaseConnection
 {
     protected function grammar(): Grammar
     {
-        return new MySqlGrammar();
+        return new MySqlGrammar(
+            $this->databaseConnection()
+        );
     }
 
     protected function connector(): ConnectorInterface

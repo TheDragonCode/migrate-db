@@ -28,7 +28,9 @@ class PostgresConnection extends BaseConnection
 
     protected function grammar(): Grammar
     {
-        return new PostgresGrammar();
+        return new PostgresGrammar(
+            $this->databaseConnection()
+        );
     }
 
     protected function connector(): ConnectorInterface
