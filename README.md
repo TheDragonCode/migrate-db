@@ -31,7 +31,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 | Service   | Versions                           |
 |:----------|:-----------------------------------|
 | PHP       | ^8.0                               |
-| Laravel   | ^8.0, ^9.0, ^10.0, ^11.0, ^12.0    |
+| Laravel   | ^8.0, ^9.0, ^10.0, ^11.0           |
 | Databases | MySQL 5.7+, PostgreSQL 9.5+, MSSQL |
 
 | Laravel \ PostgreSQL | 9  | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
@@ -40,7 +40,6 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 | 9                    | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | 10                   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | 11                   | ✖️ | ✖️ | ✖️ | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
-| 12                   | ✖️ | ✖️ | ✖️ | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 
 
 ## Usage
