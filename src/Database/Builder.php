@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Database;
 
 use DragonCode\Contracts\MigrateDB\Builder as BuilderContract;

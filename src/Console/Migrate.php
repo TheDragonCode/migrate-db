@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Console;
 
 use DragonCode\Contracts\MigrateDB\Builder;
@@ -17,10 +19,10 @@ use Illuminate\Support\Facades\Schema;
 class Migrate extends Command
 {
     protected $signature = 'db:migrate'
-    . ' {--schema-from= : Source connection name}'
-    . ' {--schema-to= : Target connection name}'
-    . ' {--exclude=* : Comma separated table names to exclude}'
-    . ' {--tables=* : Comma separated table names to migrate only}';
+        . ' {--schema-from= : Source connection name}'
+        . ' {--schema-to= : Target connection name}'
+        . ' {--exclude=* : Comma separated table names to exclude}'
+        . ' {--tables=* : Comma separated table names to migrate only}';
 
     protected $description = 'Data transfer from one database to another';
 
