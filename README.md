@@ -53,13 +53,13 @@ parameters:
 php artisan db:migrate --schema-from=foo --schema-to=bar
 ```
 
-### Only Specific Tables
+### For Certain Tables
 
 ```bash
 php artisan db:migrate --schema-from=foo --schema-to=bar --tables=table1 --tables=table2 --tables=table3
 ```
 
-### Exclude Specific Tables
+### Exclude Certain Tables
 
 ```bash
 php artisan db:migrate --schema-from=foo --schema-to=bar --exclude=table1 --exclude=table2 --exclude=table3
