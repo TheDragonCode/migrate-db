@@ -139,7 +139,7 @@ class Migrate extends Command
             ->chunk(1000, function (Collection $items) use ($table) {
                 $items = Arr::resolve($items);
 
-                $this->builder($this->target(), $table)->insert($items);
+                $this->builder($this->target(), $table)->insertOrIgnore($items);
             });
 
         $this->migrated[] = $table;
