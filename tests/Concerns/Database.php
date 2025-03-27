@@ -103,8 +103,12 @@ trait Database
 
     protected function getTables(SchemaBuilder $builder): array
     {
+        $schema = method_exists($builder, 'getCurrentSchemaName')
+            ? $builder->getCurrentSchemaName()
+            : null;
+
         return method_exists($builder, 'getAllTables')
             ? $builder->getAllTables()
-            : $builder->getTables($builder->getCurrentSchemaName());
+            : $builder->getTables($schema);
     }
 }
