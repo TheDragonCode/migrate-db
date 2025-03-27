@@ -135,9 +135,9 @@ class Migrate extends Command
         $this->builder($this->source(), $table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
-                $this->builder($this->target(), $table)->updateOrInsert(
-                    Arr::resolve($items)
-                );
+                $items = Arr::resolve($items);
+
+                $this->builder($this->target(), $table)->insert($items);
             });
 
         $this->migrated[] = $table;
