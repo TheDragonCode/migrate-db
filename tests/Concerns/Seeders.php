@@ -40,7 +40,7 @@ trait Seeders
             $ulids[$i] = (string) Str::ulid();
 
             if (Str::startsWith(Application::VERSION, '12.')) {
-                usleep(500);
+                usleep(1100);
             }
         }
 
