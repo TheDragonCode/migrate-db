@@ -2,6 +2,7 @@
 
 namespace Tests\Concerns;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -33,10 +34,20 @@ trait Seeders
 
     protected function fillUlidTable(string $table): void
     {
+        $ulids = [];
+
+        for ($i = 0; $i < 3; $i++) {
+            $ulids[$i] = (string) Str::ulid();
+
+            if (Str::startsWith(Application::VERSION, '12.')) {
+                usleep(500);
+            }
+        }
+
         DB::connection($this->source_connection)->table($table)->insert([
-            ['value' => $table . '_1', 'ulid' => (string) Str::ulid()],
-            ['value' => $table . '_2', 'ulid' => (string) Str::ulid()],
-            ['value' => $table . '_3', 'ulid' => (string) Str::ulid()],
+            ['value' => $table . '_1', 'ulid' => $ulids[0]],
+            ['value' => $table . '_2', 'ulid' => $ulids[1]],
+            ['value' => $table . '_3', 'ulid' => $ulids[2]],
         ]);
     }
 
