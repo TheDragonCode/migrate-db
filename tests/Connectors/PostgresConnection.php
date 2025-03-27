@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Connectors;
 
 use Illuminate\Database\Connectors\ConnectorInterface;
@@ -28,7 +30,9 @@ class PostgresConnection extends BaseConnection
 
     protected function grammar(): Grammar
     {
-        return new PostgresGrammar();
+        return new PostgresGrammar(
+            $this->databaseConnection()
+        );
     }
 
     protected function connector(): ConnectorInterface

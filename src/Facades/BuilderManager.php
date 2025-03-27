@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Facades;
 
 use DragonCode\Contracts\MigrateDB\Builder;

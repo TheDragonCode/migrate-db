@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Exceptions;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException as BaseException;

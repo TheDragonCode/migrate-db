@@ -1,6 +1,6 @@
 name: phpunit
 
-on: [ push, pull_request ]
+on: [ push ]
 
 jobs:
     build:
@@ -10,7 +10,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "8.0", "8.1", "8.2", "8.3", "8.4" ]
-                laravel: [ "8.0", "9.0", "10.0", "11.0" ]
+                laravel: [ "8.0", "9.0", "10.0", "11.0", "12.0" ]
                 psql: [ "9", "10", "11", "12", "13", "14", "15", "16", "17" ]
                 exclude:
                     - laravel: "8.0"
@@ -41,6 +41,21 @@ jobs:
                       psql: "10"
                       
                     - laravel: "11.0"
+                      psql: "11"
+                      
+                    - laravel: "12.0"
+                      php: "8.0"
+                      
+                    - laravel: "12.0"
+                      php: "8.1"
+                      
+                    - laravel: "12.0"
+                      psql: "9"
+                      
+                    - laravel: "12.0"
+                      psql: "10"
+                      
+                    - laravel: "12.0"
                       psql: "11"
 
         name: php ${{ matrix.php }}, lr ${{ matrix.laravel }}, pg ${{ matrix.psql }}

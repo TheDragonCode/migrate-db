@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Connectors;
 
 use Illuminate\Database\Connectors\ConnectorInterface;
@@ -11,7 +13,9 @@ class MySqlConnection extends BaseConnection
 {
     protected function grammar(): Grammar
     {
-        return new MySqlGrammar();
+        return new MySqlGrammar(
+            $this->databaseConnection()
+        );
     }
 
     protected function connector(): ConnectorInterface

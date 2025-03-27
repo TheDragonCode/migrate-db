@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Console;
 
 use DragonCode\Contracts\MigrateDB\Builder;
@@ -135,9 +137,9 @@ class Migrate extends Command
         $this->builder($this->source(), $table)
             ->orderBy($column)
             ->chunk(1000, function (Collection $items) use ($table) {
-                $items = Arr::resolve($items);
-
-                $this->builder($this->target(), $table)->insert($items);
+                $this->builder($this->target(), $table)->insert(
+                    Arr::resolve($items)
+                );
             });
 
         $this->migrated[] = $table;

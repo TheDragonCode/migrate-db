@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\MigrateDB\Database;
 
 use DragonCode\Contracts\MigrateDB\Builder as BuilderContract;
@@ -33,9 +35,13 @@ abstract class Builder implements BuilderContract
 
     public function getAllTables(): array
     {
+        $schema = method_exists($this->schema(), 'getCurrentSchemaName')
+            ? $this->schema()->getCurrentSchemaName()
+            : null;
+        
         $tables = method_exists($this->schema(), 'getAllTables')
             ? $this->schema()->getAllTables()
-            : $this->schema()->getTables();
+            : $this->schema()->getTables($schema);
 
         $key = $this->tableNameColumn();
 

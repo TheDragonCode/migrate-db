@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Concerns;
 
 use DragonCode\MigrateDB\Constants\Drivers;
@@ -101,8 +103,12 @@ trait Database
 
     protected function getTables(SchemaBuilder $builder): array
     {
+        $schema = method_exists($builder, 'getCurrentSchemaName')
+            ? $builder->getCurrentSchemaName()
+            : null;
+
         return method_exists($builder, 'getAllTables')
             ? $builder->getAllTables()
-            : $builder->getTables();
+            : $builder->getTables($schema);
     }
 }
